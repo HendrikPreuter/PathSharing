@@ -28,9 +28,9 @@
     <input type="radio" name="Allignment" value="Chaotic neutral"> Chaotic neutral <br>
     <input type="radio" name="Allignment" value="Chaotic evil"> Chaotic evil <br>
     <br>
-    Tatoos /scars /piercings /marks: <br><textarea type="text" name="Marks" style="width: 300px; height: 100px;"  placeholder="Tatoos, scars, piercings, etc."></textarea><br>
+    Tatoos /scars /piercings /marks: <br><textarea name="Marks" style="width: 300px; height: 100px;"  placeholder="Tatoos, scars, piercings, etc."></textarea><br>
     <br>
-    General description: <br><textarea type="text" name="description" style="width: 300px; height: 100px;"  placeholder="General description."></textarea><br>
+    General description: <br><textarea name="description" style="width: 300px; height: 100px;"  placeholder="General description."></textarea><br>
     <br>
 
 
