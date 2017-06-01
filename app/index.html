@@ -4,40 +4,49 @@
 <!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html lang="en" ng-app="myApp" class="no-js"> <!--<![endif]-->
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>PathSharing</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
-  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
-  <link rel="stylesheet" href="app.css">
-  <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>PathSharing</title>
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
+    <link rel="stylesheet" href="app.css">
+
+    <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src='/bower_components/angular/angular.js'></script>
+    <script src='main.js'></script>
 </head>
 <body>
-  <ul class="menu">
-    <li><a href="#!/view1">view1</a></li>
-    <li><a href="#!/view2">view2</a></li>
-  </ul>
+    <img class="img" src="header-img.png" alt="Pathfinder" style="width:800px;height:200px;"/>
 
-  <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-  <![endif]-->
+    <div class="nav">
+        <button class="button">Home</button>
+        <button class="button">Groups</button>
+        <button class="button">User</button>
+        <button class="button">About</button>
+    </div>
 
-  <div ng-view></div>
+    <div class="content">
+        <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ante magna, euismod nec dui non, congue lobortis tellus. Sed porta pulvinar ipsum ac lobortis. Nam eu fermentum lorem, ut porttitor mauris. Sed cursus ullamcorper purus quis pretium. Mauris nec lacus nulla. Sed ac pellentesque nulla. Quisque a orci sem. Mauris ac egestas lorem. Duis sodales tincidunt massa, in consequat massa rutrum ac. Aliquam condimentum et sapien id feugiat. Morbi euismod arcu nec neque dictum dignissim. Nunc non gravida velit, vel gravida ligula. Fusce aliquet vestibulum scelerisque. Duis eget iaculis magna. Proin interdum, lacus at lacinia hendrerit, lacus dolor elementum nunc, sit amet vehicula felis purus quis odio. Sed vitae ante velit.
+        </p>
+        <p>
+        Fusce ac sodales libero. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vivamus a justo augue. Quisque a enim aliquam ligula placerat ullamcorper. Etiam a consequat diam. Cras et dictum nunc. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean bibendum at mauris non aliquet. Maecenas at sodales felis, et tristique justo. Curabitur pharetra leo vulputate, tempus magna a, pharetra ante. Suspendisse egestas iaculis diam vel semper. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Pellentesque non ipsum fermentum, tempor ante ut, pharetra urna. Nullam condimentum dapibus congue. Curabitur neque justo, tincidunt finibus luctus et, dapibus rhoncus nisl.
+        </p>
+        <p>
+        Proin tincidunt ante non cursus aliquam. Praesent consectetur ipsum in erat convallis convallis. Donec efficitur mi euismod nisi placerat, fermentum accumsan nibh sollicitudin. Proin ac magna tincidunt, tristique eros sed, placerat ligula. In viverra sollicitudin velit, et malesuada lectus vehicula non. Aenean pretium massa ultricies nunc aliquet lacinia. Pellentesque et dapibus ex, vel commodo sapien. Ut ut velit scelerisque, condimentum augue ut, auctor risus.
+        </p>
+    </div>
 
-  <div>Angular seed app: v<span app-version></span></div>
-
-  <!-- In production use:
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
-  -->
-  <script src="bower_components/angular/angular.js"></script>
-  <script src="bower_components/angular-route/angular-route.js"></script>
-  <script src="app.js"></script>
-  <script src="view1/view1.js"></script>
-  <script src="view2/view2.js"></script>
-  <script src="components/version/version.js"></script>
-  <script src="components/version/version-directive.js"></script>
-  <script src="components/version/interpolate-filter.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="app.js"></script>
+    <script src="components/version/version.js"></script>
+    <script src="components/version/version-directive.js"></script>
+    <script src="components/version/interpolate-filter.js"></script>
 </body>
 </html>

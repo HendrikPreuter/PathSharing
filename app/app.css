@@ -7,19 +7,50 @@
   padding: 0 0 0.5em;
 }
 
-.menu:before {
-  content: "[";
+.button {
+    background-color: #700000;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: -2px;
+    cursor: pointer;
 }
 
-.menu:after {
-  content: "]";
+.button:hover {
+    background-color: #a80000;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: -2px;
+    cursor: pointer;
 }
 
-.menu > li {
-  display: inline;
+body {
+    background-image: url("wood-background.jpg");
 }
 
-.menu > li + li:before {
-  content: "|";
-  padding-right: 0.3em;
+.img {
+    display: block;
+    margin: 0 auto;
+}
+
+.nav {
+    margin: auto;
+    text-align: center;
+}
+
+.content {
+    display: block;
+    margin: 10px 10% 10%;
+    background-color: white;
+    padding-left: 5px;
+    padding-right: 5px;
 }
