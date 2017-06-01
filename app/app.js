@@ -1,14 +1,23 @@
-'use strict';
+angular.module("myApp", []);
 
-// Declare app level module which depends on views, and components
-angular.module('myApp', [
-  'ngRoute',
-  'myApp.view1',
-  'myApp.view2',
-  'myApp.version'
-]).
-config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
-  $locationProvider.hashPrefix('!');
+function GetController($scope, $http) {
 
-  $routeProvider.otherwise({redirectTo: '/view1'});
-}]);
+    $scope.click = function() {
+
+        // $http.defaults.useXDomain = true;
+
+        var response = $http.get('http://localhost:80/groups');
+
+        response.success(function(data) {
+
+            alert("Ok." + data);
+
+        });
+
+        response.error(function(data, status, headers, config) {
+            alert("Error.");
+        });
+
+    };
+
+}
