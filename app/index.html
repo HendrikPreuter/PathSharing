@@ -1,8 +1,5 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en" ng-app="myApp" class="no-js"> <!--<![endif]-->
+<html ng-app="myApp" ng-controller="myController">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,22 +15,17 @@
 
     <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
     <script src='/bower_components/angular/angular.js'></script>
-    <script src='main.js'></script>
 </head>
 <body>
+
+<h1 ng-bind="jsVar"></h1>
     <img class="img" src="header-img.png" alt="Pathfinder" style="width:800px;height:200px;"/>
 
-    <div ng-controller="GetData">
-
-        <button ng-click="GetData()">Get Data</button>
-
-    </div>
-
     <div class="nav">
-        <button class="button">Home</button>
-        <button class="button">Groups</button>
-        <button class="button">User</button>
-        <button class="button">About</button>
+        <button class="button" ng-click="request('')">Home</button>
+        <button class="button" ng-click="request('groups')">Groups</button>
+        <button class="button" ng-click="request('user')">User</button>
+        <button class="button" ng-click="request('about')">About</button>
     </div>
 
     <div class="content">
@@ -48,9 +40,8 @@
         </p>
     </div>
 
-    <script src="bower_components/angular/angular.js"></script>
+    <script src='app.js'></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
-    <script src="app.js"></script>
     <script src="components/version/version.js"></script>
     <script src="components/version/version-directive.js"></script>
     <script src="components/version/interpolate-filter.js"></script>

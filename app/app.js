@@ -1,23 +1,20 @@
-angular.module("myApp", []);
+angular.module("myApp", []).controller("myController", function($scope, $http) {
+    $http({
+        method: 'GET',
+        url: 'http://localhost:5000/'
+    }).then(function successCallback(response) {
+        $scope.jsVar = response.data;
+    }, function errorCallback(response) {
+        console.log(response);
+    });
 
-function GetController($scope, $http) {
-
-    $scope.click = function() {
-
-        // $http.defaults.useXDomain = true;
-
-        var response = $http.get('http://localhost:80/groups');
-
-        response.success(function(data) {
-
-            alert("Ok." + data);
-
-        });
-
-        response.error(function(data, status, headers, config) {
-            alert("Error.");
-        });
-
-    };
-
-}
+    $scope.request = function(param){
+        $http({
+            method: 'GET',
+            url: 'http://localhost:5000/' + param
+        }).then(function successCallback(response) {
+            $scope.jsVar = response.data;
+        }, function errorCallback(response) {
+            console.log(response);
+        })};
+});
