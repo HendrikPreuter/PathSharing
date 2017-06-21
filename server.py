@@ -3,7 +3,7 @@ from flask import request
 from flask_cors import CORS
 
 app = Flask(__name__)
-#TODO: figure out how CORS works exactly, possibly remove CORS(app) and add @cross_origin() where needed.
+# TODO: figure out how CORS works exactly, possibly remove CORS(app) and add @cross_origin() where needed.
 CORS(app)
 
 
