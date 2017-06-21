@@ -21,6 +21,24 @@
 <h1 ng-bind="jsVar"></h1>
     <img class="img" src="header-img.png" alt="Pathfinder" style="width:800px;height:200px;"/>
 
+    <!-- TODO login beter maken --->
+    <div class="login">
+        <table>
+            <tr>
+                <td"><input style="width: 180px;" type="text" placeholder="Username"/></td>
+            </tr>
+            <tr>
+                <td><input style="width: 180px;" type="password" placeholder="Password"/></td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="#here">Forgot password</a>
+                    <button>Login</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
     <div class="nav">
         <button class="button" ng-click="request('')">Home</button>
         <button class="button" ng-click="request('groups')">Groups</button>

@@ -54,3 +54,10 @@ body {
     padding-left: 5px;
     padding-right: 5px;
 }
+/* TODO login mooi maken */
+.login {
+    position:absolute;
+    top:0;
+    right:0;
+    background-color: white;
+}
