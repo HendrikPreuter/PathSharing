@@ -7,7 +7,7 @@ app = Flask(__name__)
 CORS(app)
 
 
-@app.route('/', methods=['GET', 'POST'] )
+@app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'GET':
         return 'This is the homepage GET'
@@ -15,7 +15,7 @@ def index():
         return 'This is the homepage POST'
 
 
-@app.route('/groups', methods=['GET', 'POST'] )
+@app.route('/groups', methods=['GET', 'POST'])
 def groups():
     if request.method == 'GET':
         return 'This is /groups GET'
@@ -23,7 +23,7 @@ def groups():
         return 'This is /groups POST'
 
 
-@app.route('/user', methods=['GET', 'POST'] )
+@app.route('/user', methods=['GET', 'POST'])
 def user():
     if request.method == 'GET':
         return 'This is /user GET'
@@ -31,7 +31,7 @@ def user():
         return 'This is /user POST'
 
 
-@app.route('/about', methods=['GET', 'POST'] )
+@app.route('/about', methods=['GET', 'POST'])
 def about():
     if request.method == 'GET':
         return 'This is /about GET'
@@ -41,7 +41,7 @@ def about():
 
 @app.route('/users/invite/<id>', methods=['POST'])
 def send_invite(id):
-    return 'Invite send to id: %s' % id
+    return 'Invite sent to id: %s' % id
 
 
 @app.route('/users/invite/accept/<group_id>', methods=['POST'])
