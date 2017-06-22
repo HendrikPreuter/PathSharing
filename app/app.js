@@ -1,20 +1,19 @@
 angular.module("myApp", []).controller("myController", function($scope, $http) {
-    $http({
-        method: 'GET',
-        url: 'http://localhost:5000/'
-    }).then(function successCallback(response) {
-        $scope.jsVar = response.data;
-    }, function errorCallback(response) {
-        console.log(response);
-    });
+    httpRequest('');
 
-    $scope.request = function(param){
+    $scope.request = function (verb) {
+        httpRequest(verb)
+    };
+
+    function httpRequest(verb) {
         $http({
             method: 'GET',
-            url: 'http://localhost:5000/' + param
+            url: 'http://localhost:5000/' + verb
         }).then(function successCallback(response) {
-            $scope.jsVar = response.data;
+            // $scope.jsVar = response.data;
+            $scope.jsVar = [1, 2, 3, 4, 5];
         }, function errorCallback(response) {
             console.log(response);
-        })};
+        })
+    }
 });

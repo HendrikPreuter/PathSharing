@@ -13,8 +13,16 @@
     <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
     <link rel="stylesheet" href="app.css">
 
-    <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
     <script src='/bower_components/angular/angular.js'></script>
+
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="components/version/version.js"></script>
+    <script src="components/version/version-directive.js"></script>
+    <script src="components/version/interpolate-filter.js"></script>
+
+    <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+
+    <script src='app.js'></script>
 </head>
 <body>
 
@@ -47,21 +55,9 @@
     </div>
     <!-- TODO content vullen met data uit de back-end (DB) --->
     <div class="content">
-        <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ante magna, euismod nec dui non, congue lobortis tellus. Sed porta pulvinar ipsum ac lobortis. Nam eu fermentum lorem, ut porttitor mauris. Sed cursus ullamcorper purus quis pretium. Mauris nec lacus nulla. Sed ac pellentesque nulla. Quisque a orci sem. Mauris ac egestas lorem. Duis sodales tincidunt massa, in consequat massa rutrum ac. Aliquam condimentum et sapien id feugiat. Morbi euismod arcu nec neque dictum dignissim. Nunc non gravida velit, vel gravida ligula. Fusce aliquet vestibulum scelerisque. Duis eget iaculis magna. Proin interdum, lacus at lacinia hendrerit, lacus dolor elementum nunc, sit amet vehicula felis purus quis odio. Sed vitae ante velit.
-        </p>
-        <p>
-        Fusce ac sodales libero. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vivamus a justo augue. Quisque a enim aliquam ligula placerat ullamcorper. Etiam a consequat diam. Cras et dictum nunc. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean bibendum at mauris non aliquet. Maecenas at sodales felis, et tristique justo. Curabitur pharetra leo vulputate, tempus magna a, pharetra ante. Suspendisse egestas iaculis diam vel semper. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Pellentesque non ipsum fermentum, tempor ante ut, pharetra urna. Nullam condimentum dapibus congue. Curabitur neque justo, tincidunt finibus luctus et, dapibus rhoncus nisl.
-        </p>
-        <p>
-        Proin tincidunt ante non cursus aliquam. Praesent consectetur ipsum in erat convallis convallis. Donec efficitur mi euismod nisi placerat, fermentum accumsan nibh sollicitudin. Proin ac magna tincidunt, tristique eros sed, placerat ligula. In viverra sollicitudin velit, et malesuada lectus vehicula non. Aenean pretium massa ultricies nunc aliquet lacinia. Pellentesque et dapibus ex, vel commodo sapien. Ut ut velit scelerisque, condimentum augue ut, auctor risus.
-        </p>
+        <li>
+            <ul ng-repeat="n in jsVar">{{ n }}</ul>
+        </li>
     </div>
-
-    <script src='app.js'></script>
-    <script src="bower_components/angular-route/angular-route.js"></script>
-    <script src="components/version/version.js"></script>
-    <script src="components/version/version-directive.js"></script>
-    <script src="components/version/interpolate-filter.js"></script>
 </body>
 </html>
