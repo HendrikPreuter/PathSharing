@@ -40,20 +40,17 @@ def about():
 
 @app.route('/users/invite/<id>', methods=['POST'])
 def send_invite(id):
-    msg = 'Invite sent to id: ' + id
-    return jsonify({'message': msg})
+    return jsonify({'message': 'Invite sent to id: ' + id})
 
 
 @app.route('/users/invite/accept/<group_id>', methods=['POST'])
 def accept_invite(group_id):
-    msg = 'Invite accepted from group_id: ' + group_id
-    return jsonify({'message': msg})
+    return jsonify({'message': 'Invite accepted from group_id: ' + group_id})
 
 
 @app.route('/groups/<group_id>/user/<id>', methods=['DELETE'])
 def remove_user_from_group(group_id, id):
-    msg = 'User_id ' + id + ' removed from group_id ' + group_id
-    return jsonify({'message': msg})
+    return jsonify({'message': 'User_id ' + id + ' removed from group_id ' + group_id})
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', debug=True)
