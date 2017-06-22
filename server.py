@@ -5,6 +5,7 @@ app = Flask(__name__)
 # TODO: figure out how CORS works exactly, possibly remove CORS(app) and add @cross_origin() where needed.
 CORS(app)
 
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'GET':
@@ -28,6 +29,7 @@ def user():
     else:
         return jsonify({'message' : 'This is /user POST'})
 
+
 @app.route('/about', methods=['GET', 'POST'])
 def about():
     if request.method == 'GET':
@@ -35,21 +37,23 @@ def about():
     else:
         return jsonify({'message' : 'This is /about POST'})
 
+
 @app.route('/users/invite/<id>', methods=['POST'])
 def send_invite(id):
     msg = 'Invite sent to id: ' + id
-    return jsonify({'message' : msg})
+    return jsonify({'message': msg})
+
 
 @app.route('/users/invite/accept/<group_id>', methods=['POST'])
 def accept_invite(group_id):
     msg = 'Invite accepted from group_id: ' + group_id
-    return jsonify({'message' : msg})
+    return jsonify({'message': msg})
 
 
 @app.route('/groups/<group_id>/user/<id>', methods=['DELETE'])
 def remove_user_from_group(group_id, id):
     msg = 'User_id ' + id + ' removed from group_id ' + group_id
-    return jsonify({'message' : msg})
+    return jsonify({'message': msg})
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', debug=True)
