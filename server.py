@@ -9,7 +9,7 @@ CORS(app)
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'GET':
-        return jsonify({'message' : 'This is the homepage GET'})
+        return jsonify({'message': 'This is the homepage GET'})
     else:
         return jsonify({'message': 'This is the homepage POST'})
 
@@ -17,25 +17,25 @@ def index():
 @app.route('/groups', methods=['GET', 'POST'])
 def groups():
     if request.method == 'GET':
-        return jsonify({'message' : 'This is /groups GET'})
+        return jsonify({'message': 'This is /groups GET'})
     else:
-        return jsonify({'message' : 'This is /groups POST'})
+        return jsonify({'message': 'This is /groups POST'})
 
 
 @app.route('/user', methods=['GET', 'POST'])
 def user():
     if request.method == 'GET':
-        return jsonify({'message' : 'This is /user GET'})
+        return jsonify({'message': 'This is /user GET'})
     else:
-        return jsonify({'message' : 'This is /user POST'})
+        return jsonify({'message': 'This is /user POST'})
 
 
 @app.route('/about', methods=['GET', 'POST'])
 def about():
     if request.method == 'GET':
-        return jsonify({'message' : 'This is /about GET'})
+        return jsonify({'message': 'This is /about GET'})
     else:
-        return jsonify({'message' : 'This is /about POST'})
+        return jsonify({'message': 'This is /about POST'})
 
 
 @app.route('/users/invite/<id>', methods=['POST'])
