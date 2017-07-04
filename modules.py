@@ -1,12 +1,17 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-
+from flask_pymongo import PyMongo
 
 app = Flask(__name__)
+# print(app)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root@localhost:3306/pathsharing'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+app.config['MONGO_DBNAME'] = 'PathSharing'
+
 db = SQLAlchemy(app)
+mongo = PyMongo(app)
 
 
 class Users(db.Model):
@@ -15,6 +20,7 @@ class Users(db.Model):
     username = db.Column(db.String)
     password = db.Column(db.String)
     email = db.Column(db.String)
+
 
 
 class Groups(db.Model):
