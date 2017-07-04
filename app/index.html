@@ -49,15 +49,17 @@
 
     <div class="nav">
         <button class="button" ng-click="request('')">Home</button>
-        <button class="button" ng-click="request('groups')">Groups</button>
+        <button class="button" ng-click="request('groups/10')">Groups</button>
         <button class="button" ng-click="request('user')">User</button>
         <button class="button" ng-click="request('about')">About</button>
     </div>
     <!-- TODO content vullen met data uit de back-end (DB) --->
     <div class="content">
-        <li>
-            <ul ng-repeat="n in jsVar">{{ n }}</ul>
-        </li>
+        <table>
+            <tr ng-repeat="(key, val) in jsVar">
+                <td style="padding: 5px">{{key}}: {{val}}</td>
+            </tr>
+        </table>
     </div>
 </body>
 </html>

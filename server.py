@@ -1,33 +1,71 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+from sqlalchemy import *
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.ext.declarative import declarative_base
 
 app = Flask(__name__)
+db = create_engine("mysql+pymysql://root@localhost:3306/pathsharing")
+connection = db.connect()
+Session = sessionmaker(bind=db)
+Base = declarative_base()
+
+
+class Users(Base):
+    __tablename__ = 'users'
+    id = Column(Integer, primary_key=True)
+    username = Column(String)
+    password = Column(String)
+    email = Column(String)
+
+    def __repr__(self):
+        return "<User(id='%s', username='%s', password='%s', email='%s')>" % (
+            self.id, self.username, self.password, self.email)
+
+
+class Groups(Base):
+    __tablename__ = 'groups'
+    id = Column(Integer, primary_key=True)
+    description = Column(String)
+    admin = Column(String)
+    name = Column(String)
+
+    def __repr__(self):
+        return "<User(id='%s', description='%s', admin='%s', name='%s')>" % (
+            self.id, self.description, self.admin, self.name)
+
 # TODO: figure out how CORS works exactly, possibly remove CORS(app) and add @cross_origin() where needed.
 CORS(app)
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['GET'])
 def index():
-    if request.method == 'GET':
-        return jsonify({'message': 'This is the homepage GET'})
-    else:
-        return jsonify({'message': 'This is the homepage POST'})
+    return jsonify({'message': 'This is the homepage'})
 
 
-@app.route('/groups', methods=['GET', 'POST'])
-def groups():
-    if request.method == 'GET':
-        return jsonify({'message': 'This is /groups GET'})
-    else:
-        return jsonify({'message': 'This is /groups POST'})
+@app.route('/groups/<id>', methods=['GET'])
+def groups(id):
+    session = Session()
+    group = session.query(Groups).filter_by(id=id).one()
+    session.close()
+    return jsonify({
+        'Group name': group.name,
+        'Description': group.description
+    })
 
 
 @app.route('/user', methods=['GET', 'POST'])
 def user():
     if request.method == 'GET':
-        return jsonify({'message': 'This is /user GET'})
+        session = Session()
+        user = session.query(Users).filter_by(id='2').one()
+        session.close()
+        return jsonify({
+                        'username': user.username,
+                        'email': user.email
+                        })
     else:
-        return jsonify({'message': 'This is /user POST'})
+        return jsonify({'message': 'User added with ID: blablablaidk needs implementing'})
 
 
 @app.route('/about', methods=['GET', 'POST'])
