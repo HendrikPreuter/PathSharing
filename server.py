@@ -7,14 +7,10 @@ from modules import *
 CORS(app)
 
 
-@app.route('/<id>', methods=['GET'])
-def index(id):
-    groups = []
-    for group in Users_has_Groups.query.filter_by(users_id=id).all():
-        groups.append(group)
-        # print(group.groups_id)
+@app.route('/', methods=['GET'])
+def index():
     return jsonify({
-        'Lorem': 'ipsum'
+        'Lorem': 'ipsum homepage sit amet'
     })
 
 
