@@ -1,27 +1,32 @@
-from sqlalchemy import *
-from sqlalchemy.ext.declarative import declarative_base
-Base = declarative_base()
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 
 
-class Users(Base):
+app = Flask(__name__)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root@localhost:3306/pathsharing'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
+
+
+class Users(db.Model):
     __tablename__ = 'users'
-    id = Column(Integer, primary_key=True)
-    username = Column(String)
-    password = Column(String)
-    email = Column(String)
-
-    def __repr__(self):
-        return "<User(id='%s', username='%s', password='%s', email='%s')>" % (
-            self.id, self.username, self.password, self.email)
+    id = db.Column(db.String, primary_key=True)
+    username = db.Column(db.String)
+    password = db.Column(db.String)
+    email = db.Column(db.String)
 
 
-class Groups(Base):
+class Groups(db.Model):
     __tablename__ = 'groups'
-    id = Column(Integer, primary_key=True)
-    description = Column(String)
-    admin = Column(String)
-    name = Column(String)
+    id = db.Column(db.String, primary_key=True)
+    description = db.Column(db.String, unique=False)
+    admin = db.Column(db.String, unique=False)
+    name = db.Column(db.String(265), unique=True)
 
-    def __repr__(self):
-        return "<User(id='%s', description='%s', admin='%s', name='%s')>" % (
-            self.id, self.description, self.admin, self.name)
+
+class Users_has_Groups(db.Model):
+    __tablename__ = 'users_has_groups'
+    pkey = db.Column(db.Integer, primary_key=True)
+    users_id = db.Column(db.String)
+    groups_id = db.Column(db.String)

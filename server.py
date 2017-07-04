@@ -1,29 +1,26 @@
-from flask import Flask, request, jsonify
+from flask import request, jsonify
 from flask_cors import CORS
-from sqlalchemy.orm import sessionmaker
 from modules import *
 
-app = Flask(__name__)
-db = create_engine("mysql+pymysql://root@localhost:3306/pathsharing")
-connection = db.connect()
-Session = sessionmaker(bind=db)
 
 # TODO: figure out how CORS works exactly, possibly remove CORS(app) and add @cross_origin() where needed.
 CORS(app)
 
 
-@app.route('/', methods=['GET'])
-def index():
+@app.route('/<id>', methods=['GET'])
+def index(id):
+    groups = []
+    for group in Users_has_Groups.query.filter_by(users_id=id).all():
+        groups.append(group)
+        # print(group.groups_id)
     return jsonify({
-        '': 'lorem ipsum dolor sit amet'
-                    })
+        'Lorem': 'ipsum'
+    })
 
 
 @app.route('/groups/<id>', methods=['GET'])
 def groups(id):
-    session = Session()
-    group = session.query(Groups).filter_by(id=id).one()
-    session.close()
+    group = Groups.query.filter_by(id=id).one()
     return jsonify({
         'Group name:': group.name,
         'Description:': group.description
@@ -31,11 +28,9 @@ def groups(id):
 
 
 @app.route('/user', methods=['GET', 'POST'])
-def user():
+def user_info():
     if request.method == 'GET':
-        session = Session()
-        user = session.query(Users).filter_by(id='2').one()
-        session.close()
+        user = Users.query.filter_by(id='2').one()
         return jsonify({
                         'username:': user.username,
                         'email:': user.email
@@ -44,12 +39,9 @@ def user():
         return jsonify({'message:': 'User added with ID: blablablaidk needs implementing'})
 
 
-@app.route('/about', methods=['GET', 'POST'])
+@app.route('/about', methods=['GET'])
 def about():
-    if request.method == 'GET':
-        return jsonify({'message:': 'This is /about GET'})
-    else:
-        return jsonify({'message:': 'This is /about POST'})
+    return jsonify({'': 'Lorem ipsum dolor sit amet'})
 
 
 @app.route('/users/invite/<id>', methods=['POST'])

@@ -2,7 +2,8 @@ create table Users_has_Groups (
 	Users_ID INT,
 	Groups_ID INT
 );
-insert into Users_has_Groups (Users_ID, Groups_ID) values (1, 6);
+insert into Users_has_Groups (Users_ID, Groups_ID) values (1, 4);
+insert into Users_has_Groups (Users_ID, Groups_ID) values (1, 5);
 insert into Users_has_Groups (Users_ID, Groups_ID) values (2, 3);
 insert into Users_has_Groups (Users_ID, Groups_ID) values (3, 6);
 insert into Users_has_Groups (Users_ID, Groups_ID) values (4, 7);
