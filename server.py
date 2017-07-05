@@ -14,13 +14,9 @@ def index():
     })
 
 
-@app.route('/groups/<id>', methods=['GET'])
-def groups(id):
-    group = Groups.query.filter_by(id=id).one()
-    return jsonify({
-        'Group name:': group.name,
-        'Description:': group.description
-    })
+@app.route('/about', methods=['GET'])
+def about():
+    return jsonify({'': 'Lorem ipsum dolor sit amet'})
 
 
 @app.route('/user', methods=['GET', 'POST'])
@@ -41,10 +37,6 @@ def user_info():
             'Email:': email
         })
 
-@app.route('/about', methods=['GET'])
-def about():
-    return jsonify({'': 'Lorem ipsum dolor sit amet'})
-
 
 @app.route('/users/invite/<id>', methods=['POST'])
 def send_invite(id):
@@ -54,6 +46,15 @@ def send_invite(id):
 @app.route('/users/invite/accept/<group_id>', methods=['POST'])
 def accept_invite(group_id):
     return jsonify({'message:': 'Invite accepted from group_id: ' + group_id})
+
+
+@app.route('/groups/<id>', methods=['GET'])
+def groups(id):
+    group = Groups.query.filter_by(id=id).one()
+    return jsonify({
+        'Group name:': group.name,
+        'Description:': group.description
+    })
 
 
 @app.route('/groups/<group_id>/user/<id>', methods=['DELETE'])
