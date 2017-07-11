@@ -72,6 +72,24 @@ def groups(id):
     print(json)
     return jsonify(json)
 
+@app.route('/group/<int:user_id>', methods=['GET'])
+def groupInfo(user_id):
+    group = Groups.query.filter_by(id=user_id).first()
+
+    userlist = []
+    for userid in Users_has_Groups.query.distinct().filter_by(groups_id=group.id).all():
+        user = Users.query.filter_by(id=userid.users_id).first()
+        userlist.append(user.username)
+
+    json = {
+        'name': group.name,
+        'description': group.description,
+        'members': userlist
+    }
+
+    print(json)
+    return jsonify(json)
+
 
 @app.route('/groups/<group_id>/user/<id>', methods=['DELETE'])
 def remove_user_from_group(group_id, id):

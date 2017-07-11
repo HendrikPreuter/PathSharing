@@ -46,9 +46,34 @@
 
 <div ng-include="'../navigation/navigation.html'"></div>
 <div class="container"  ng-repeat="(key, value) in jsVar">
-    <h1>{{ value.name }}</h1>
+
+    <!--<pre>{{ key }}</pre>-->
+
+    <!-- <div class="row">
+        <div class="col-md-2 col-md-offset-11">
+            <button class="btn btn-primary">Add Group</button>
+        </div>
+    </div>
+
+    <div class="row">&nbsp;</div> -->
+
+    <div class="row">
+        <ul class="list-group">
+            <a href="/user/{{ key }}" class="list-group-item">
+                <h4 class="list-group-item-heading">{{ value.name }}</h4>
+                <p class="list-group-item-text">{{ value.description}}</p>
+                <p class="list-group-item-text">{{ value.members}}</p>
+            </a>
+        </ul>
+    </div>
+
+
+
+
+
+    <!-- <h1>{{ value.name }}</h1>
     <p>{{ value.description }}</p>
-    <p>{{ value.members }}</p>
+    <p>{{ value.members }}</p> -->
 </div>
 </body>
 
