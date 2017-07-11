@@ -6,60 +6,85 @@
 
     <title>PathSharing</title>
 
+    <!-- General -->
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
-    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
-    <link rel="stylesheet" href="app.css">
 
+    <!-- Angular -->
     <script src='/bower_components/angular/angular.js'></script>
-
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="components/version/version.js"></script>
     <script src="components/version/version-directive.js"></script>
     <script src="components/version/interpolate-filter.js"></script>
-
     <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 
+    <!-- Project -->
     <script src='app.js'></script>
+
+    <!-- Bootstrap and JQuery (CDN) -->
+    <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+            integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+            crossorigin="anonymous">
+    <script
+            src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
+    <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+
+
 </head>
 <body>
+<nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">PathSharing</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="index.html">Home</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="Webpages/groups/groups.html">Groups<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="Webpages/groups/groups.html">My groups</a></li>
+                            <li><a href="Webpages/create_group/create_group.html">Create new group</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="Webpages/user/user.html">User<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="Webpages/user/user.html">Account info</a></li>
+                            <li><a href="Webpages/invitations/invitations.html">My invitations</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="Webpages/about/about.html">About</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="Webpages/signup/signup.html"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                    <li><a href="Webpages/login/login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                </ul>
+            </div>
+        </div>
+</nav>
 
-<!-- <h1 ng-bind="jsVar"></h1> --->
-    <img class="img" src="header-img.png" alt="Pathfinder" style="width:800px;height:200px;"/>
-
-    <!-- TODO login beter maken --->
-    <div class="login">
-        <table>
-            <tr>
-                <td><input style="width: 180px;" type="text" placeholder="Username"/></td>
-            </tr>
-            <tr>
-                <td><input style="width: 180px;" type="password" placeholder="Password"/></td>
-            </tr>
-            <tr>
-                <td>
-                    <a href="#here">Forgot password</a>
-                    <button>Login</button>
-                </td>
-            </tr>
-        </table>
-    </div>
-
-    <div class="nav">
-        <button class="button" ng-click="request('')">Home</button>
-        <button class="button" ng-click="request('groups/10')">Groups</button>
-        <button class="button" ng-click="request('user')">User</button>
-        <button class="button" ng-click="request('about')">About</button>
-    </div>
-    <!-- TODO content vullen met data uit de back-end (DB) --->
-    <div class="content">
-        <table>
-            <tr ng-repeat="(key, val) in jsVar">
-                <td style="padding: 5px">{{key}} {{val}}</td>
-            </tr>
-        </table>
-    </div>
+<div class="container">
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla pharetra a tortor a faucibus. Praesent interdum
+        libero quis consectetur iaculis. Praesent vel lectus finibus, vehicula nunc in, molestie nulla. Cras tempor
+        egestas hendrerit. Quisque libero justo, condimentum vitae mollis vel, mollis ut ipsum. Aliquam vel libero a
+        sapien rutrum molestie. Duis dapibus aliquet aliquet. Suspendisse ultrices urna velit, eget facilisis nibh
+        iaculis dapibus. Proin laoreet eros ac tristique aliquam.
+    </p>
+</div>
 </body>
 </html>

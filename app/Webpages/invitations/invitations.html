@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html ng-app="myApp" ng-controller="invitationsController">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>PathSharing</title>
+
+    <!-- General -->
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <!-- Angular -->
+    <script src='/bower_components/angular/angular.js'></script>
+    <script src="../../bower_components/angular-route/angular-route.js"></script>
+    <script src="../../components/version/version.js"></script>
+    <script src="../../components/version/version-directive.js"></script>
+    <script src="../../components/version/interpolate-filter.js"></script>
+    <script src="../../bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+
+    <!-- Project -->
+    <script src='../../app.js'></script>
+    <script src="invitations.js"></script>
+
+    <!-- Bootstrap and JQuery (CDN) -->
+    <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+            integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+            crossorigin="anonymous">
+    <script
+            src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
+    <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+
+
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="../../index.html">PathSharing</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li><a href="../../index.html">Home</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="../groups/groups.html">Groups<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="../groups/groups.html">My groups</a></li>
+                        <li><a href="../create_group/create_group.html">Create new group</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown active">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="../user/user.html">User<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="../user/user.html">Account info</a></li>
+                        <li><a href="invitations.html">My invitations</a></li>
+                    </ul>
+                </li>
+                <li><a href="../about/about.html">About</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="../signup/signup.html"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                <li><a href="../login/login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

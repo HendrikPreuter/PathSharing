@@ -22,7 +22,6 @@ class Users(db.Model):
     email = db.Column(db.String)
 
 
-
 class Groups(db.Model):
     __tablename__ = 'groups'
     id = db.Column(db.String, primary_key=True)
