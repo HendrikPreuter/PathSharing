@@ -1,0 +1,25 @@
+.footer{
+    position:absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    font-size: smaller;
+    font-style: oblique;
+    font-weight: bold;
+}
+html{
+    height: 100%;
+}
+body{
+    position: relative;
+    min-height: 100%;
+    margin: 0;
+}
+.description{
+    font-size: small;
+    font-style: italic;
+
+}
+.container{
+    height: 100%;
+}
