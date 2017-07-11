@@ -1,3 +1,4 @@
+<script type="text/javascript" src="../navigation/navigation.js"></script>
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -27,7 +28,7 @@
                 </li>
                 <li><a href="../../Webpages/about/about.html">About</a></li>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right" ng-if="!id">
                 <li><a href="../../Webpages/signup/signup.html"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
                 <li><a href="../../Webpages/login/login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
             </ul>

@@ -1,13 +1,7 @@
-/**
- * Created by brend on 11-Jul-17.
- */
-/**
- * Created by brend on 11-Jul-17.
- */
 angular.module("myApp", []).controller("userController", function($scope, $http) {
     $http({
         method: 'GET',
-        url: 'http://localhost:5000/user'
+        url: 'http://localhost:5000/user/1'
     }).then(function successCallback(response) {
         $scope.jsVar = response.data;
         console.log(response);
