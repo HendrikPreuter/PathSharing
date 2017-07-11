@@ -20,8 +20,10 @@
     <script src="../../bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 
     <!-- Project -->
-    <script src='../../app.js'></script>
+    <script src='../home/app.js'></script>
     <script src="create_group.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="../CSS/css.css">
 
     <!-- Bootstrap and JQuery (CDN) -->
     <link
@@ -41,41 +43,9 @@
 
 </head>
 <body>
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="../../index.html">PathSharing</a>
-        </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav">
-                <li><a href="../../index.html">Home</a></li>
-                <li class="dropdown active">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="../groups/groups.html">Groups<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="../groups/groups.html">My groups</a></li>
-                        <li><a href="create_group.html">Create new group</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="../user/user.html">User<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="../user/user.html">Account info</a></li>
-                        <li><a href="../invitations/invitations.html">My invitations</a></li>
-                    </ul>
-                </li>
-                <li><a href="../about/about.html">About</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="../signup/signup.html"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                <li><a href="../login/login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<div ng-include="'../navigation/navigation.html'"></div>
 </body>
+<footer class="footer">
+    Created by Hanze Corp. inc. @ Groningen The netherlands
+</footer>
 </html>
