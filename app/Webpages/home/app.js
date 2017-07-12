@@ -1,12 +1,10 @@
-angular.module("myApp", []).controller("myController", ['$scope', '$http', function($scope, $http) {
-    try{
-        $scope.token = localStorage.getItem('token');
-        console.log($scope.id, $scope.username);
-        if($scope.token){
-            $scope.id = $scope.token['id'];
-            $scope.username = $scope.token['username'];
-        }
-    } catch(Exception) {
-        console.log(Exception);
-    }
-}]);
+angular.module("myApp", [])
+    .controller("myController", ['$scope', '$http', function($scope, $http) {
+        $scope.username = localStorage.getItem('username');
+        $scope.userid = localStorage.getItem('userid');
+
+        $scope.signout = function signout(){
+            localStorage.clear();
+            $http.defaults.headers.common.Token = null;
+        };
+    }]);

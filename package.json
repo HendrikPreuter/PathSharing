@@ -33,7 +33,9 @@
     },
     "dependencies": {
         "angular": "^1.6.4",
+        "angular-jwt": "^0.1.9",
         "bootstrap": "^3.3.7",
-        "jquery": "^3.2.1"
+        "jquery": "^3.2.1",
+        "jwthelper": "0.0.4"
     }
 }

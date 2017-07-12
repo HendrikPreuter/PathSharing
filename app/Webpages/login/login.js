@@ -1,4 +1,4 @@
-angular.module("myApp.login", []).controller("loginController", ['$scope', '$http', '$location', function($scope, $http, $location) {
+angular.module("myApp.login", ['angular-jwt']).controller("loginController", ['$scope', '$http', '$location', 'jwtHelper', function ($scope, $http, $location, jwtHelper) {
     $scope.token = localStorage.getItem('token');
     if($scope.token !== null) {
         $http.defaults.header.common.Token = $scope.token;
@@ -18,10 +18,12 @@ angular.module("myApp.login", []).controller("loginController", ['$scope', '$htt
             }
 
             else {
-                console.log('Logged in');
-                alert("Logged in");
                 $scope.token = response.data.token;
                 $http.defaults.headers.common.Token = $scope.token;
+
+                var userinfo = jwtHelper.decodeToken($scope.token);
+                localStorage.setItem('username', userinfo.username);
+                localStorage.setItem('userid', userinfo.id);
                 window.location.href = '../../index.html';
             }
         })

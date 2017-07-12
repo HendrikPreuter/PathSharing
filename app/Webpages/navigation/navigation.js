@@ -1,5 +1,8 @@
 angular.module("myApp.navigation", []).controller("navigationController", function($scope, $http) {
-    $scope.token = $http.default.headers.common.Token;
-    $scope.id = $scope.token['id'];
-    $scope.username = $scope.token['username'];
+    $scope.username = localStorage.getItem('username');
+    $scope.userid = localStorage.getItem('userid');
+
+    $scope.signout = function signout(){
+        localStorage.clear()
+    };
 });
