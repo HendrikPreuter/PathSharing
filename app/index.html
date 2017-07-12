@@ -1,15 +1,104 @@
-<!DOCTYPE HTML>
-<html lang="en-US">
+<!DOCTYPE html>
+<html ng-app="myApp" ng-controller="navController">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="1; url=../../Webpages/home/index.html">
-    <script type="text/javascript">
-        window.location.href = "../../Webpages/home/index.html"
+    <div ng-bind=""></div>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>PathSharing</title>
+
+    <!-- General -->
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Angular -->
+    <script src='/bower_components/angular/angular.js'></script>
+    <script src="/bower_components/angular-route/angular-route.js"></script>
+    <script src="/components/version/version.js"></script>
+    <script src="/components/version/version-directive.js"></script>
+    <script src="/components/version/interpolate-filter.js"></script>
+    <script src="/bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+
+    <!-- Project -->
+    <script src='app.js'></script>
+    <script
+        type="text/javascript"
+        src="https://cdn.rawgit.com/auth0/angular-jwt/master/dist/angular-jwt.js">
     </script>
-    <title>Page Redirection</title>
+    <script src='Webpages/home/home.js'></script>
+    <script src='Webpages/groups/groups.js'></script>
+    <script src='Webpages/about/about.js'></script>
+    <script src='Webpages/signup/signup.js'></script>
+    <script src='Webpages/user/user.js'></script>
+    <script src='Webpages/invitations/invitations.js'></script>
+    <script src='Webpages/login/login.js'></script>
+
+    <link rel="stylesheet" type="text/css" href="Webpages/CSS/style.css">
+    <!-- Bootstrap and JQuery (CDN) -->
+    <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+            integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+            crossorigin="anonymous">
+    <script
+            src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
+    <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+
+
 </head>
 <body>
-<!-- Note: don't tell people to `click` the link, just tell them that it is a link. -->
-If you are not redirected automatically, follow this <a href='../../Webpages/home/index.html'>link to example</a>.
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/#!home">PathSharing</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li><a href="/#!home">Home</a></li>
+                    <li class="dropdown" ng-if="username">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="/#!groups">Groups<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/#!groups">My groups</a></li>
+                            <li><a href="/#!groups/create">Create new group</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" ng-if="username">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="/#!user">User<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/#!user">Account info</a></li>
+                            <li><a href="/#!invites">My invitations</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#!/about">About</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right" ng-if="!username">
+                    <li><a href="/#!signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                    <li><a href="/#!login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right" ng-if="username">
+                <li><a href="/#!user"><span class="glyphicon glyphicon-user"></span> {{ username }}</a></li>
+                <li><a href="/#!home" ng-click="signout()"><span class="glyphicon glyphicon-log-in"></span> Sign out</a></li>
+            </ul>
+            </div>
+        </div>
+
+    </nav>
+
+    <div class="container" ng-view></div>
+
+    <footer class="footer">
+        Created by ITV2D-G3 @ Groningen the Netherlands
+    </footer>
 </body>
+
 </html>

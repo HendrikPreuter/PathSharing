@@ -1,9 +1,17 @@
-angular.module("myApp", []).controller("aboutController", function($scope, $http) {
-    $scope.username = localStorage.getItem('username');
-    $scope.userid = localStorage.getItem('userid');
+angular.module("myApp.about", ['ngRoute'])
+    .config(['$routeProvider', function ($routeProvider) {
+        $routeProvider.when('/about', {
+            templateUrl: 'Webpages/about/about.html',
+            controller: 'aboutController'
+        });
+    }])
 
-    $scope.signout = function signout(){
-        localStorage.clear();
-        $http.defaults.headers.common.Token = null;
-    };
-});
+    .controller("aboutController", function($scope, $http){
+        $scope.username = localStorage.getItem('username');
+        $scope.userid = localStorage.getItem('userid');
+
+        $scope.signout = function signout(){
+            localStorage.clear();
+            $http.defaults.headers.common.Token = null;
+        }
+    });

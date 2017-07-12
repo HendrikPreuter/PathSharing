@@ -1,48 +1,3 @@
-<!DOCTYPE html>
-<html ng-app="myApp" ng-controller="signupController">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-    <title>PathSharing</title>
-
-    <!-- General -->
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-
-    <!-- Angular -->
-    <script src='/bower_components/angular/angular.js'></script>
-    <script src="../../bower_components/angular-route/angular-route.js"></script>
-    <script src="../../components/version/version.js"></script>
-    <script src="../../components/version/version-directive.js"></script>
-    <script src="../../components/version/interpolate-filter.js"></script>
-    <script src="../../bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
-
-    <!-- Project -->
-    <script src='../home/app.js'></script>
-    <script src="signup.js"></script>
-
-    <link rel="stylesheet" type="text/css" href="../CSS/css.css">
-    <!-- Bootstrap and JQuery (CDN) -->
-    <link
-            rel="stylesheet"
-            href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-            integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-            crossorigin="anonymous">
-    <script
-            src="https://code.jquery.com/jquery-3.2.1.min.js"
-            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-            crossorigin="anonymous"></script>
-    <script
-            src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-            crossorigin="anonymous"></script>
-
-
-</head>
-<body>
-<div ng-include="'../navigation/navigation.html'"></div>
 <form>
     <div class="form-group">
         <label for="username">Username:</label>
@@ -58,6 +13,3 @@
     </div>
     <button ng-click="signup(user)" type="submit" class="btn btn-default">Submit</button>
 </form>
-</body>
-
-</html>
