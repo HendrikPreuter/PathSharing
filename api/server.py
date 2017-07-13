@@ -1,11 +1,10 @@
 import gridfs
-from flask import request, jsonify
+from flask import jsonify
 from flask_cors import CORS
 
 from api.database.modules import *
 from api.services.authenticator import *
 
-# TODO: figure out how CORS works exactly, possibly remove CORS(app) and add @cross_origin() where needed.
 CORS(app)
 
 
@@ -18,12 +17,14 @@ def index():
 
 @app.route('/login', methods=['POST'])
 def login():
-    user_info = request.get_json(force=True)
+    data = request.get_json(force=True)
 
     try:
-        user = Users.query.filter_by(username=user_info['username']).filter_by(password=user_info['password']).one()
+        user = Users.query.filter_by(username=data['username'])\
+            .filter_by(password=data['password']).one()
         return jsonify({'token': generate_token(user)})
     except Exception as e:
+        print(e)
         return jsonify({'error': str(e)})
 
 
@@ -34,12 +35,15 @@ def about():
 
 @app.route('/user/<int:user_id>', methods=['GET'])
 def user_info(user_id):
+    print(user_id)
     if check_user():
         user = Users.query.filter_by(id=user_id).one()
-        return jsonify({
+        response = jsonify({
             'username': user.username,
             'email': user.email
         })
+        print(response)
+        return response
 
 
 @app.route('/user', methods=['POST'])
@@ -52,13 +56,15 @@ def create_user_info():
     db.session.add(user)
     db.session.commit()
     return jsonify({
-        'response': 'succes'
+        'response': 'success'
     })
 
 
-@app.route('/users/invite/<id>', methods=['POST'])
-def send_invite(id):
-    return jsonify({'message': 'Invite sent to id: ' + id})
+@app.route('/users/invite', methods=['POST'])
+def send_invite():
+    data = request.get_json(force=True)
+    userid = data['userid']
+    return jsonify({'message': 'Invite sent to id: ' + userid})
 
 
 @app.route('/users/invite/accept/<group_id>', methods=['POST'])
@@ -94,6 +100,21 @@ def groups(id):
 
     print(json)
     return jsonify(json)
+
+
+@app.route('/groups', methods=['POST'])
+def create_group():
+    group_info = request.get_json(force=True)
+    description = group_info['description']
+    admin = group_info['admin']
+    name = group_info['name']
+    group = Groups(id=None, description=description, admin=admin, name=name)
+    db.session.add(group)
+    db.session.commit()
+    return jsonify({
+        'response': 'Group created successfully'
+    })
+
 
 @app.route('/group/<int:user_id>', methods=['GET'])
 def groupInfo(user_id):

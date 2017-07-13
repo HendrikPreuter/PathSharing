@@ -7,17 +7,12 @@ angular.module("myApp.user", ['ngRoute'])
     }])
 
     .controller("userController", function($scope, $http) {
-        $scope.username = localStorage.getItem('username');
-        $scope.userid = localStorage.getItem('userid');
-
-        $scope.signout = function signout(){
-            localStorage.clear();
-            $http.defaults.headers.common.Token = null;
-        };
-
         $http({
             method: 'GET',
-            url: 'http://localhost:5000/user/' + $scope.userid
+            url: 'http://localhost:5000/user/' + $scope.userid,
+            headers: {
+                'Access-Control-Allow-Origin': 'http://localhost:8000'
+            }
         }).then(function successCallback(response) {
             $scope.jsVar = response.data;
             console.log(response);

@@ -33,13 +33,13 @@ angular.module("myApp.groups", ['ngRoute'])
     })
 
     .controller("create_groupController", function($scope, $http) {
-        $scope.username = localStorage.getItem('username');
-        $scope.userid = localStorage.getItem('userid');
-
-        $scope.signout = function signout(){
-            localStorage.clear();
-            $http.defaults.headers.common.Token = null;
-        };
+        $scope.create_group = function create_group(group){
+            var data = {
+                'description': group.description,
+                'name': group.name,
+                'admin': 'lol'
+            }
+        }
     })
     //TODO: Finish group info page.
     .controller("group_infoController", function($scope, $http, $routeParams) {

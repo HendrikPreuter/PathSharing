@@ -1,13 +1,22 @@
-angular.module('myApp', ['ngRoute', 'myApp.home', 'myApp.groups',
-    'myApp.about', 'myApp.signup', 'myApp.user',
-    'myApp.invitations', 'myApp.login'])
+angular.module('myApp',
+    ['ngRoute',
+    'myApp.home',
+    'myApp.groups',
+    'myApp.about',
+    'myApp.signup',
+    'myApp.user',
+    'myApp.invitations',
+    'myApp.login'])
     .config(['$routeProvider', function($routeProvider) {
         $routeProvider.otherwise({redirectTo: '/home'});
     }])
-    .controller('indexController', ['$scope', '$http', function ($scope, $http) {
-        $scope.username = localStorage.getItem('username');
-        $scope.userid = localStorage.getItem('userid');
-        console.log($scope.username);
+    .controller('indexController', ['$scope', '$http', 'jwtHelper', function ($scope, $http, jwtHelper) {
+        $scope.token = localStorage.getItem('token');
+        if ($scope.token) {
+            $scope.userinfo = jwtHelper.decodeToken($scope.token);
+            $scope.username = $scope.userinfo['username'];
+            $http.defaults.headers.common.Token = $scope.token;
+        }
 
         $scope.signout = function signout(){
             localStorage.clear();
