@@ -3,8 +3,7 @@ angular.module("myApp.invitations", ['ngRoute'])
         $routeProvider.when('/invites', {
             templateUrl: 'Webpages/invitations/invitations.html',
             controller: 'invitationsController'
-        });
-        $routeProvider.when('/create_invite', {
+        }).when('/create_invite', {
             templateUrl: 'Webpages/invitations/send_invitation.html',
             controller: 'sendInvitationsController'
         })
@@ -30,8 +29,6 @@ angular.module("myApp.invitations", ['ngRoute'])
                 }
             })
         }
-
-
     })
     .controller("sendInvitationsController", function($scope, $http) {
         $scope.send_invite = function(invitation) {

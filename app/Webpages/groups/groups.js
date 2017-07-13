@@ -24,8 +24,7 @@ angular.module("myApp.groups", ['ngRoute'])
         $http.get('http://localhost:5000/groups', data).then(function(response) {
             if(response.data.response === 'error') {
                 console.log(response.data.response);
-            }
-            else {
+            } else {
                 $scope.groups = response.data.groups;
             }
         });
@@ -57,7 +56,6 @@ angular.module("myApp.groups", ['ngRoute'])
             else {
                 window.location.href = 'http://localhost:8000/#!/login';
             }
-
         }
     })
     //TODO: Finish group info page.

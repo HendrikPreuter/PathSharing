@@ -15,13 +15,14 @@ angular.module("myApp.login", ['ngRoute', 'angular-jwt'])
 
         $scope.login = function(user) {
             var data = {
-                'username': user.username,
-                'password': user.password
+                "username": user.username,
+                "password": user.password
             };
             console.log(data);
             $http.post("http://localhost:5000/login", data).then(function (response) {
                 if(response.data.response === 'error') {
-                    console.log('Error')
+                    console.log('Error');
+                    $scope.error = "Something went wrong, try again";
                 } else {
                     $scope.token = response.data.token;
                     $http.defaults.headers.common.Token = $scope.token;
