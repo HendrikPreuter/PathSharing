@@ -9,6 +9,9 @@ angular.module("myApp.invitations", ['ngRoute'])
         })
     }])
     .controller("invitationsController", function($scope, $http) {
+        if (!localStorage.getItem('token')) {
+            window.location.href = '/#!login';
+        }
         $http.get('http://localhost:5000/invites').then(function(response) {
             if(response.data.response === "error"){
                 console.log(response);
@@ -31,6 +34,9 @@ angular.module("myApp.invitations", ['ngRoute'])
         }
     })
     .controller("sendInvitationsController", function($scope, $http) {
+        if (!localStorage.getItem('token')) {
+            window.location.href = '/#!login';
+        }
         $scope.send_invite = function(invitation) {
             data = {
                 'group_name': invitation.group_name,

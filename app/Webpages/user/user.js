@@ -7,6 +7,9 @@ angular.module("myApp.user", ['ngRoute'])
     }])
 
     .controller("userController", function($scope, $http) {
+        if (!localStorage.getItem('token')) {
+            window.location.href = '/#!login';
+        }
         $http.get('http://localhost:5000/user').then(function (response) {
             if(response.data.response === "error"){
                 console.log(response);

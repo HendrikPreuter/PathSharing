@@ -13,6 +13,9 @@ angular.module("myApp.groups", ['ngRoute'])
     }])
 
     .controller("groupsController", function ($scope, $http, $routeParams, jwtHelper) {
+        if (!localStorage.getItem('token')) {
+            window.location.href = '/#!login';
+        }
         var token = localStorage.getItem('token');
         $http.defaults.headers.common.Token = token;
         var user_info = jwtHelper.decodeToken(token);
@@ -35,6 +38,9 @@ angular.module("myApp.groups", ['ngRoute'])
     })
 
     .controller("create_groupController", function($scope, $http, jwtHelper) {
+        if (!localStorage.getItem('token')) {
+            window.location.href = '/#!login';
+        }
         $scope.create_group = function create_group(group){
             $scope.token = localStorage.getItem('token');
             var token = jwtHelper.decodeToken($scope.token);
@@ -60,6 +66,9 @@ angular.module("myApp.groups", ['ngRoute'])
     })
     //TODO: Finish group info page.
     .controller("group_infoController", function($scope, $http, $routeParams) {
+        if (!localStorage.getItem('token')) {
+            window.location.href = '/#!login';
+        }
         var group_id = $routeParams['groupId'];
         console.log(group_id);
 
