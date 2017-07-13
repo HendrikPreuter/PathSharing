@@ -8,20 +8,33 @@ angular.module("myApp.signup", ['ngRoute'])
 
     .controller("signupController", function($scope, $http){
         $scope.signup = function(user) {
-            var data = {
-                'username': user.username,
-                'email': user.email,
-                'password': user.password
-            };
-            $http.post("http://localhost:5000/user", data).then(function(response){
-                if(response.data.response === "succes"){
-                    alert("user created");
-                    console.log("succes");
-                    window.location.assign('/#!login');
-                } else {
-                    console.log(response.data.response);
-                    alert(response.data.response);
-                }
-            })
+            if(!user) {
+                console.log("error test");
+            } else if(!user.username) {
+                console.log("username error");
+                $scope.error = "Please fill in your username";
+            } else if(!user.email) {
+                console.log("email error");
+                $scope.error = "Please fill in your email";
+            } else if(!user.password) {
+                console.log("password error");
+                $scope.error = "Please fill in your password";
+            } else {
+                var data = {
+                    'username': user.username,
+                    'email': user.email,
+                    'password': user.password
+                };
+                $http.post("http://localhost:5000/user", data).then(function (response) {
+                    if (response.data.response === "succes") {
+                        alert("user created");
+                        console.log("succes");
+                        window.location.assign('/#!login');
+                    } else {
+                        console.log(response.data.response);
+                        alert(response.data.response);
+                    }
+                })
+            }
         };
     });
