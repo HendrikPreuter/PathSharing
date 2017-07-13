@@ -6,7 +6,7 @@ angular.module("myApp.groups", ['ngRoute'])
         }).when('/groups/create', {
             templateUrl: 'Webpages/groups/create_group.html',
             controller: 'create_groupController'
-        }).when('/groups/info', {
+        }).when('/groups/info/:groupId', {
             templateUrl: 'Webpages/groups/group_info.html',
             controller: 'group_infoController'
         })
@@ -42,15 +42,13 @@ angular.module("myApp.groups", ['ngRoute'])
         };
     })
     //TODO: Finish group info page.
-    .controller("group_infoController", function($scope, $http, $routeParams, $location) {
-        // test = $location.search();
-        // console.log(test);
-        // $routeParams['id']
-        //$http.get('http://localhost:5000/group/');
+    .controller("group_infoController", function($scope, $http, $routeParams) {
+        groupId = $routeParams['groupId'];
+        console.log(groupId);
 
         $http({
             method: 'GET',
-            url: 'http://localhost:5000/group/10'
+            url: 'http://localhost:5000/group/' + groupId
         }).then(function successCallback(response) {
             $scope.jsVar = response.data;
             console.log(response);
