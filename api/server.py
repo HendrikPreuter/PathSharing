@@ -210,7 +210,6 @@ def create_group():
         except:
             pass
 
-        print("you should see this too")
         group = Groups(id=None, description=description, admin=admin, name=name)
 
         db.session.add(group)
@@ -229,9 +228,7 @@ def create_group():
 
 @app.route('/group/<int:group_id>', methods=['GET'])
 def groupInfo(group_id):
-    user_info = get_user()
-    user_id = user_info['id']
-    group = Groups.query.filter_by(id=user_id).first()
+    group = Groups.query.filter_by(id=group_id).first()
 
     userlist = []
     for userid in Users_has_Groups.query.distinct().filter_by(groups_id=group_id).all():
