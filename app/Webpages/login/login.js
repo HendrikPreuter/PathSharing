@@ -27,6 +27,7 @@ angular.module("myApp.login", ['ngRoute', 'angular-jwt'])
                     $scope.token = response.data.token;
                     $http.defaults.headers.common.Token = $scope.token;
                     localStorage.setItem('token', $scope.token);
+                    location.reload();
                     window.location.href = '/#!home';
                 }
             })
