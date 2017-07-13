@@ -62,12 +62,12 @@ angular.module("myApp.groups", ['ngRoute'])
     })
     //TODO: Finish group info page.
     .controller("group_infoController", function($scope, $http, $routeParams) {
-        groupId = $routeParams['groupId'];
-        console.log(groupId);
+        var group_id = $routeParams['groupId'];
+        console.log(group_id);
 
         $http({
             method: 'GET',
-            url: 'http://localhost:5000/group/' + groupId
+            url: 'http://localhost:5000/group/' + group_id
         }).then(function successCallback(response) {
             $scope.groups = response.data;
             console.log(response);
