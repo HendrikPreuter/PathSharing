@@ -175,7 +175,8 @@ def groupInfo(user_id):
     json = {
         'name': group.name,
         'description': group.description,
-        'members': userlist
+        'members': userlist,
+        'admin': group.admin
     }
 
     print(json)

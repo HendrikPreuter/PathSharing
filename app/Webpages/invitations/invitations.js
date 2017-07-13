@@ -10,8 +10,8 @@ angular.module("myApp.invitations", ['ngRoute'])
     }])
     .controller("invitationsController", function($scope, $http) {
         $http.get('http://localhost:5000/invites').then(function(response) {
-            if(response.data.response !== "success"){
-                console.log(response.data.response);
+            if(response.data.response === "error"){
+                console.log(response);
             } else {
                 $scope.invites = response.data;
             }
