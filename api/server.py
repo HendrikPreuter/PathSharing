@@ -122,6 +122,7 @@ def groups():
             # Now append the group name, description and users that are in the group to the JSON variable
             grouplist.append({
                 'name': group.name,
+                'id': group.id,
                 'description': group.description,
                 'admin': groupadmin.username,
                 'members': userlist

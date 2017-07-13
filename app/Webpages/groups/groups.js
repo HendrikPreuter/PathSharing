@@ -31,7 +31,11 @@ angular.module("myApp.groups", ['ngRoute'])
             else {
                 console.log(response.data.response);
             }
-        })
+        });
+
+        $scope.opengroup = function(id) {
+            window.location.href = 'http://localhost:8000/#!/groups/info/' + id;
+        }
     })
 
     .controller("create_groupController", function($scope, $http, jwtHelper) {
