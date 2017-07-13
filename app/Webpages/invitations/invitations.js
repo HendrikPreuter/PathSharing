@@ -32,6 +32,7 @@ angular.module("myApp.invitations", ['ngRoute'])
                     $scope.error = response.data.error;
                 } else {
                     $scope.success = response.data.success;
+                    location.reload();
                 }
             })
         }
