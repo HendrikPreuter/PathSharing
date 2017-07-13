@@ -24,10 +24,10 @@ def login():
             .filter_by(password=data['password']).one()
         return jsonify({'token': generate_token(user)})
     except Exception as e:
-        print(e)
         return jsonify({
             'response': 'error',
-            'error': 'Invalid username or password'
+            'error': 'Invalid username or password',
+            'debugging': str(e)
         })
 
 
