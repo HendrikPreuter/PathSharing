@@ -26,7 +26,7 @@ angular.module("myApp.signup", ['ngRoute'])
                     'password': user.password
                 };
                 $http.post("http://localhost:5000/user", data).then(function (response) {
-                    if (response.data.response === "succes") {
+                    if (response.data.response === "success") {
                         alert("user created");
                         console.log("succes");
                         window.location.assign('/#!login');
