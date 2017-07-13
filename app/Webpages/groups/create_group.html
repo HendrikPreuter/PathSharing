@@ -4,14 +4,14 @@
 
             <div class="form-group">
                 <label for="groupName">Group Name</label>
-                <input type="text" class="form-control" id="groupName" placeholder="Group Name" ng-model="name">
+                <input type="text" class="form-control" id="groupName" placeholder="Group Name" ng-model="group.name">
             </div>
 
             <div class="form-group">
-                <textarea class="form-control" placeholder="Group Description" ng-model="description"></textarea>
+                <textarea class="form-control" placeholder="Group Description" ng-model="group.description"></textarea>
             </div>
 
-            <button class="btn btn-lg btn-primary" ng-click="create_group()">Create Group</button>
+            <button class="btn btn-lg btn-primary" ng-click="create_group(group)">Create Group</button>
 
         </form>
     </div>

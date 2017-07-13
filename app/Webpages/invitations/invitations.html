@@ -1,1 +1,4 @@
-<p>this is the invitations page</p>
+<div ng-repeat="invite in invites">
+    <p>{{invite.group_name}}</p>
+    <button class="btn btn-lg btn-primary" ng-click="accept_invite(invite.id, invite.group_id, invite.user_id)">Accept</button>
+</div>

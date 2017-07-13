@@ -12,33 +12,54 @@ angular.module("myApp.groups", ['ngRoute'])
         })
     }])
 
-    .controller("groupsController", function ($scope, $http, $routeParams) {
-        $scope.username = localStorage.getItem('username');
-        $scope.userid = localStorage.getItem('userid');
-
-        $scope.signout = function signout(){
-            localStorage.clear();
-            $http.defaults.headers.common.Token = null;
+    .controller("groupsController", function ($scope, $http, $routeParams, jwtHelper) {
+        var token = localStorage.getItem('token');
+        $http.defaults.headers.common.Token = token;
+        var user_id = jwtHelper.decodeToken(token);
+        console.log(user_id);
+        var id=user_id['id'];
+        var data = {
+            'user_id': id
         };
+        console.log(data);
 
-        $http({
-            method: 'GET',
-            url: 'http://localhost:5000/groups/' + $scope.userid
-        }).then(function successCallback(response) {
-            $scope.jsVar = response.data;
-            console.log(response);
-        }, function errorCallback(response) {
-            console.log(response);
+        $http.get('http://localhost:5000/groups', data).then(function(response) {
+            if(response.data.response === 'succes') {
+                console.log(response.data.groups);
+                $scope.groups = response.data.groups;
+            }
+            else {
+                console.log(response.data.response);
+            }
         })
     })
 
-    .controller("create_groupController", function($scope, $http) {
+    .controller("create_groupController", function($scope, $http, jwtHelper) {
         $scope.create_group = function create_group(group){
-            var data = {
-                'description': group.description,
-                'name': group.name,
-                'admin': 'lol'
+            $scope.token = localStorage.getItem('token');
+            var token = jwtHelper.decodeToken($scope.token);
+            if($scope.token) {
+                $http.defaults.headers.common.Token = $scope.token;
+                var data = {
+                    'description': group.description,
+                    'name': group.name,
+                    'admin': token['id']
+                };
+                console.log(data);
+
+                $http.post('http://localhost:5000/groups', data).then(function(response){
+                    if(response.data.response === "success"){
+                        console.log("success");
+                    } else {
+                        console.log(response.data.response);
+                    }
+                })
             }
+
+            else {
+                window.location.href('/login');
+            }
+
         }
     })
     //TODO: Finish group info page.

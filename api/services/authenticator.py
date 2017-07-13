@@ -25,3 +25,15 @@ def check_user():
         return True
     except DecodeError:
         return False
+
+def get_user():
+    token = request.headers.get('Token')
+
+    if token is None:
+        return None
+
+    try:
+        user = jwt.decode(token, Configurations.jwt_key, algorithms=[Configurations.jwt_algorithm])
+        return user
+    except DecodeError:
+        return None

@@ -30,5 +30,11 @@ class Groups(db.Model):
 class Users_has_Groups(db.Model):
     __tablename__ = 'users_has_groups'
     pkey = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    users_id = db.Column(db.String)
-    groups_id = db.Column(db.String)
+    users_id = db.Column(db.Integer)
+    groups_id = db.Column(db.Integer)
+
+class invitations(db.Model):
+    __tablename__ = 'invitations'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    user_id = db.Column(db.Integer)
+    group_id = db.Column(db.Integer)

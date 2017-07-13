@@ -1,6 +1,6 @@
 import gridfs
 from flask import jsonify
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 
 from api.database.modules import *
 from api.services.authenticator import *
@@ -59,58 +59,101 @@ def create_user_info():
         'response': 'success'
     })
 
+@app.route('/invites', methods=['GET'])
+def get_invites():
+    user = get_user()
+    userid= user['id']
+    invitationslist = []
+    for invitation in invitations.query.filter_by(user_id=userid).all():
+        group = Groups.query.filter_by(id=invitation.group_id).first()
+        invitationslist.append({'id': invitation.id,
+                                'group_name': group.name,
+                                'group_id': invitation.group_id,
+                                'user_id': invitation.user_id})
 
-@app.route('/users/invite', methods=['POST'])
+    return jsonify(invitationslist)
+
+
+@app.route('/invites', methods=['POST'])
 def send_invite():
     data = request.get_json(force=True)
-    userid = data['userid']
-    return jsonify({'message': 'Invite sent to id: ' + userid})
+    username = data['user_name']
+    groupname = data['group_name']
+    groupinfo = Groups.query.filter_by(name=groupname).first()
+    userinfo = Users.query.filter_by(username=username).first()
+    invitation = invitations(id=None, user_id=userinfo.id, group_id=groupinfo.id)
+    db.session.add(invitation)
+    db.session.flush()
+    db.session.commit()
+    return jsonify({'response': 'succes'})
 
 
-@app.route('/users/invite/accept/<group_id>', methods=['POST'])
-def accept_invite(group_id):
-    return jsonify({'message': 'Invite accepted from group_id: ' + group_id})
+@app.route('/accept_invite', methods=['POST'])
+def accept_invite():
+    data = request.get_json(force=True)
+    invitation = invitations.query.filter_by(id=data['invite_id']).first()
+    db.session.delete(invitation)
+    group = Users_has_Groups(pkey=None, users_id=data['user_id'], groups_id=data['group_id'])
+    db.session.add(group)
+    db.session.flush()
+    db.session.commit()
+    return jsonify({'response': 'succes'})
 
+@app.route('/groups', methods=['GET'])
+def groups():
+    if check_user():
+        user_info = get_user()
+        id = user_info['id']
+        grouplist = []
+        # Get all groups the user is in
+        for useringroup in Users_has_Groups.query.filter_by(users_id=id).all():
 
-@app.route('/groups/<int:id>', methods=['GET'])
-def groups(id):
-    json = {}
+            # Get the users that are in these groups
+            group = Groups.query.filter_by(id=useringroup.groups_id).first()
 
-    # Get all groups the user is in
-    for useringroup in Users_has_Groups.query.filter_by(users_id=id).all():
+            # Get the name of the group admin
+            groupadmin = Users.query.filter_by(id=group.admin).first()
 
-        # Get the users that are in these groups
-        group = Groups.query.filter_by(id=useringroup.groups_id).first()
+            # Get the usernames of the users that are in the group and append them to the user list
+            userlist = []
+            for userid in Users_has_Groups.query.distinct().filter_by(groups_id=group.id).all():
+                user = Users.query.filter_by(id=userid.users_id).first()
+                userlist.append(user.username)
+            # Now append the group name, description and users that are in the group to the JSON variable
+            grouplist.append({
+                'name': group.name,
+                'description': group.description,
+                'admin': groupadmin.username,
+                'members': userlist
+            })
 
-        # Get the name of the group admin
-        groupadmin = Users.query.filter_by(id=group.admin)
-
-        # Get the usernames of the users that are in the group and append them to the user list
-        userlist = []
-        for userid in Users_has_Groups.query.distinct().filter_by(groups_id=group.id).all():
-            user = Users.query.filter_by(id=userid.users_id).first()
-            userlist.append(user.username)
-        # Now append the group name, description and users that are in the group to the JSON variable
-        json[group.id] = {
-            'name': group.name,
-            'description': group.description,
-            'admin': groupadmin.username,
-            'members': userlist
+        json = {
+            'response': 'succes',
+            'groups': grouplist
         }
-
-    print(json)
-    return jsonify(json)
+        print(json)
+        return jsonify(json)
 
 
 @app.route('/groups', methods=['POST'])
+@cross_origin()
 def create_group():
-    group_info = request.get_json(force=True)
-    description = group_info['description']
-    admin = group_info['admin']
-    name = group_info['name']
-    group = Groups(id=None, description=description, admin=admin, name=name)
-    db.session.add(group)
-    db.session.commit()
+    if check_user():
+        group_info = request.get_json(force=True)
+        description = group_info['description']
+        admin = group_info['admin']
+        name = group_info['name']
+        group = Groups(id=None, description=description, admin=admin, name=name)
+
+        db.session.add(group)
+        db.session.flush()
+        groupid = group.id
+        db.session.commit()
+
+
+        users_has_groups = Users_has_Groups(pkey=None, users_id=admin, groups_id=groupid)
+        db.session.add(users_has_groups)
+        db.session.commit()
     return jsonify({
         'response': 'Group created successfully'
     })
