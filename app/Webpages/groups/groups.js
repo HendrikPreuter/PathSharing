@@ -22,11 +22,11 @@ angular.module("myApp.groups", ['ngRoute'])
         };
 
         $http.get('http://localhost:5000/groups', data).then(function(response) {
-            if(response.data.response === 'succes') {
-                $scope.groups = response.data.groups;
+            if(response.data.response === 'error') {
+                console.log(response.data.response);
             }
             else {
-                console.log(response.data.response);
+                $scope.groups = response.data.groups;
             }
         });
 
@@ -48,15 +48,14 @@ angular.module("myApp.groups", ['ngRoute'])
                 };
 
                 $http.post('http://localhost:5000/groups', data).then(function(response){
-                    if(response.data.response === "success"){
-                    } else {
-                        console.log(response.data.response);
+                    if(response.data.response === "error"){
+                        console.log(response);
                     }
                 })
             }
 
             else {
-                window.location.href('/login');
+                window.location.href = 'http://localhost:8000/#!/login';
             }
 
         }

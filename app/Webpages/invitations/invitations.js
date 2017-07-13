@@ -10,11 +10,13 @@ angular.module("myApp.invitations", ['ngRoute'])
         })
     }])
     .controller("invitationsController", function($scope, $http) {
-        $scope.invites = [];
-        console.log('anuskaas');
         $http.get('http://localhost:5000/invites').then(function(response) {
-            $scope.invites = response.data;
-        })
+            if(response.data.response !== "success"){
+                console.log(response.data.response);
+            } else {
+                $scope.invites = response.data;
+            }
+        });
 
         $scope.accept_invite = function(invite_id, group_id, user_id) {
             data = {
@@ -23,7 +25,9 @@ angular.module("myApp.invitations", ['ngRoute'])
                 'user_id': user_id
             };
             $http.post('http://localhost:5000/accept_invite', data).then(function(response) {
-
+                if(response.data.response !== "success"){
+                    console.log(response.data.response);
+                }
             })
         }
 
@@ -34,9 +38,11 @@ angular.module("myApp.invitations", ['ngRoute'])
             data = {
                 'group_name': invitation.group_name,
                 'user_name': invitation.user_name
-            }
-            $http.post('http://localhost:5000/invites', data).then(function(reponse) {
-
+            };
+            $http.post('http://localhost:5000/invites', data).then(function(response) {
+                if(response.data.response !== "success"){
+                    console.log(response.data.response);
+                }
             });
         }
     });

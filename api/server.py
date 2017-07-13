@@ -33,16 +33,16 @@ def about():
     return jsonify({'': 'Lorem ipsum dolor sit amet'})
 
 
-@app.route('/user/<int:user_id>', methods=['GET'])
-def user_info(user_id):
-    print(user_id)
+@app.route('/user', methods=['GET'])
+def user_info():
     if check_user():
+        user = get_user()
+        user_id = user['id']
         user = Users.query.filter_by(id=user_id).one()
         response = jsonify({
             'username': user.username,
             'email': user.email
         })
-        print(response)
         return response
 
 
@@ -59,19 +59,22 @@ def create_user_info():
         'response': 'success'
     })
 
+
 @app.route('/invites', methods=['GET'])
 def get_invites():
     user = get_user()
-    userid= user['id']
-    invitationslist = []
-    for invitation in invitations.query.filter_by(user_id=userid).all():
+    user_id = user['id']
+    invitations_list = []
+    for invitation in invitations.query.filter_by(user_id=user_id).all():
         group = Groups.query.filter_by(id=invitation.group_id).first()
-        invitationslist.append({'id': invitation.id,
-                                'group_name': group.name,
-                                'group_id': invitation.group_id,
-                                'user_id': invitation.user_id})
+        invitations_list.append({
+            'id': invitation.id,
+            'group_name': group.name,
+            'group_id': invitation.group_id,
+            'user_id': invitation.user_id
+        })
 
-    return jsonify(invitationslist)
+    return jsonify(invitations_list)
 
 
 @app.route('/invites', methods=['POST'])

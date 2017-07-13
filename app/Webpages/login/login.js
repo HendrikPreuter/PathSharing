@@ -14,24 +14,18 @@ angular.module("myApp.login", ['ngRoute', 'angular-jwt'])
         }
 
         $scope.login = function(user) {
-            console.log('logging in.');
             var data = {
                 'username': user.username,
                 'password': user.password
             };
             console.log(data);
             $http.post("http://localhost:5000/login", data).then(function (response) {
-                alert(response.data.response);
-
                 if(response.data.response === 'error') {
                     console.log('Error')
                 } else {
                     $scope.token = response.data.token;
                     $http.defaults.headers.common.Token = $scope.token;
-
-                    var userinfo = jwtHelper.decodeToken($scope.token);
-                    localStorage.setItem('username', userinfo.username);
-                    localStorage.setItem('userid', userinfo.id);
+                    localStorage.setItem('token', $scope.token);
                     window.location.href = '/#!home';
                 }
             })
