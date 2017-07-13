@@ -12,7 +12,8 @@ angular.module('myApp',
     }])
     .controller('indexController', ['$scope', '$http', 'jwtHelper', function ($scope, $http, jwtHelper) {
         $scope.token = localStorage.getItem('token');
-        if ($scope.token) {
+        if ($scope.token != 'undefined') {
+            console.log($scope.token);
             $scope.userinfo = jwtHelper.decodeToken($scope.token);
             $scope.username = $scope.userinfo['username'];
             $http.defaults.headers.common.Token = $scope.token;

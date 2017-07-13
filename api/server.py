@@ -25,7 +25,10 @@ def login():
         return jsonify({'token': generate_token(user)})
     except Exception as e:
         print(e)
-        return jsonify({'error': str(e)})
+        return jsonify({
+            'response': 'error',
+            'error': 'Invalid username or password'
+        })
 
 
 @app.route('/about', methods=['GET'])
@@ -44,15 +47,30 @@ def user_info():
             'email': user.email
         })
         return response
+    else:
+        return jsonify({
+            'response': 'error',
+            'error': 'Incorrect username or password'
+        })
 
 
 @app.route('/user', methods=['POST'])
 def create_user_info():
     user_info = request.get_json(force=True)
     name = user_info['username']
-    mail = user_info['email']
+    email = user_info['email']
     password = user_info['password']
-    user = Users(id=None, username=name, password=password, email=mail)
+    if Users.query.filter_by(username=name).one():
+        return jsonify({
+            'response': 'error',
+            'error': 'This username is already in use'
+        })
+    if Users.query.filter_by(email=email).one():
+        return jsonify({
+            'response': 'error',
+            'error': 'This e-mail is already in use'
+        })
+    user = Users(id=None, username=name, password=password, email=email)
     db.session.add(user)
     db.session.commit()
     return jsonify({

@@ -32,7 +32,7 @@ angular.module("myApp.signup", ['ngRoute'])
                         window.location.assign('/#!login');
                     } else {
                         console.log(response.data.response);
-                        alert(response.data.response);
+                        $scope.error = response.data.error;
                     }
                 })
             }
