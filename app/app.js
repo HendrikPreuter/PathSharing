@@ -18,8 +18,11 @@ angular.module('myApp',
             $http.defaults.headers.common.Token = $scope.token;
         }
 
+
         $scope.signout = function signout(){
             localStorage.clear();
             $http.defaults.headers.common.Token = null;
+            window.location.assign('/#!home');
+            location.reload();
         };
     }]);

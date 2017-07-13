@@ -6,4 +6,7 @@ angular.module("myApp.invitations", ['ngRoute'])
         });
     }])
     .controller("invitationsController", function($scope, $http) {
+        $scope.username = localStorage.getItem('username');
+        $scope.userid = localStorage.getItem('userid');
+
     });
