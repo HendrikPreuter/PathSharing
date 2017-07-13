@@ -24,7 +24,7 @@ angular.module("myApp.invitations", ['ngRoute'])
                 'user_id': user_id
             };
             $http.post('http://localhost:5000/accept_invite', data).then(function(response) {
-                if(response.data.response !== "success"){
+                if(response.data.response === "error"){
                     console.log(response.data.response);
                 }
             })
@@ -37,7 +37,7 @@ angular.module("myApp.invitations", ['ngRoute'])
                 'user_name': invitation.user_name
             };
             $http.post('http://localhost:5000/invites', data).then(function(response) {
-                if(response.data.response !== "success"){
+                if(response.data.response === "error"){
                     console.log(response.data.response);
                 }
             });
