@@ -14,6 +14,18 @@ angular.module("myApp.login", ['ngRoute', 'angular-jwt'])
         }
 
         $scope.login = function(user) {
+            if (!user) {
+                $scope.error = 'Please enter your username and password';
+                return;
+            }
+            if (!user.username) {
+                $scope.error = 'Please enter your username'
+                return;
+            }
+            if (!user.password) {
+                $scope.error = 'Please enter your password';
+                return;
+            }
             var data = {
                 "username": user.username,
                 "password": user.password
@@ -28,9 +40,8 @@ angular.module("myApp.login", ['ngRoute', 'angular-jwt'])
                     $scope.token = response.data.token;
                     $http.defaults.headers.common.Token = $scope.token;
                     localStorage.setItem('token', $scope.token);
-                    alert('redirecting');
-                    // location.reload();
                     window.location.href = '/#!home';
+                    location.reload();
                 }
             })
         }
