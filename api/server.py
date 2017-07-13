@@ -50,22 +50,30 @@ def create_user_info():
     name = user_info['username']
     email = user_info['email']
     password = user_info['password']
-    if Users.query.filter_by(username=name).one():
-        return jsonify({
-            'response': 'error',
-            'error': 'This username is already in use'
-        })
-    if Users.query.filter_by(email=email).one():
-        return jsonify({
-            'response': 'error',
-            'error': 'This e-mail is already in use'
-        })
+    try:
+        if Users.query.filter_by(username=name).one():
+            return jsonify({
+                'response': 'error',
+                'error': 'This username is already in use'
+            })
+    except:
+        pass
+
+    try:
+        if Users.query.filter_by(email=email).one():
+            return jsonify({
+                'response': 'error',
+                'error': 'This e-mail is already in use'
+            })
+    except:
+        pass
+
     user = Users(id=None, username=name, password=password, email=email)
     db.session.add(user)
     db.session.commit()
     return jsonify({
         'response': 'success',
-        'success': 'Account created successfully, you should be directed to the login page'
+        'success': 'Account created successfully'
     })
 
 

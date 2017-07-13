@@ -28,7 +28,6 @@ angular.module("myApp.signup", ['ngRoute'])
                 $http.post("http://localhost:5000/user", data).then(function (response) {
                     if (response.data.response === "success") {
                         $scope.success = response.data.success;
-                        location.reload();
                     } else {
                         console.log(response.data.response);
                         $scope.error = response.data.error;
