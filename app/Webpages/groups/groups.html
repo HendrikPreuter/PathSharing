@@ -11,9 +11,9 @@
             <a ng-click="opengroup(group.id)" class="list-group-item">
                 <h4 class="list-group-item-heading">{{ group.name }}</h4>
                 <h4>Description:</h4>
-                <p class="list-group-item-text">{{group.description}}</p>
+                <p class="list-group-item-text">{{ group.description }}</p>
                 <h4>Members:</h4>
-                <p ng-repeat="member in group.members" class="list-group-item-text">{{ member}}</p>
+                <p class="list-group-item-text"><span ng-repeat="member in group.members">{{ member }} </span></p>
             </a>
         </ul>
     </div>

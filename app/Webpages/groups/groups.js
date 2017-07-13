@@ -70,7 +70,7 @@ angular.module("myApp.groups", ['ngRoute'])
             method: 'GET',
             url: 'http://localhost:5000/group/' + groupId
         }).then(function successCallback(response) {
-            $scope.jsVar = response.data;
+            $scope.groups = response.data;
             console.log(response);
         }, function errorCallback(response) {
             console.log(response);
