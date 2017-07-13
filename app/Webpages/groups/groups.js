@@ -15,17 +15,14 @@ angular.module("myApp.groups", ['ngRoute'])
     .controller("groupsController", function ($scope, $http, $routeParams, jwtHelper) {
         var token = localStorage.getItem('token');
         $http.defaults.headers.common.Token = token;
-        var user_id = jwtHelper.decodeToken(token);
-        console.log(user_id);
-        var id=user_id['id'];
+        var user_info = jwtHelper.decodeToken(token);
+        var id = user_info['id'];
         var data = {
             'user_id': id
         };
-        console.log(data);
 
         $http.get('http://localhost:5000/groups', data).then(function(response) {
             if(response.data.response === 'succes') {
-                console.log(response.data.groups);
                 $scope.groups = response.data.groups;
             }
             else {
@@ -49,11 +46,9 @@ angular.module("myApp.groups", ['ngRoute'])
                     'name': group.name,
                     'admin': token['id']
                 };
-                console.log(data);
 
                 $http.post('http://localhost:5000/groups', data).then(function(response){
                     if(response.data.response === "success"){
-                        console.log("success");
                     } else {
                         console.log(response.data.response);
                     }

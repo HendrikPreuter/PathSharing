@@ -99,6 +99,7 @@ def accept_invite():
     db.session.commit()
     return jsonify({'response': 'succes'})
 
+
 @app.route('/groups', methods=['GET'])
 def groups():
     if check_user():
@@ -132,7 +133,6 @@ def groups():
             'response': 'succes',
             'groups': grouplist
         }
-        print(json)
         return jsonify(json)
 
 
