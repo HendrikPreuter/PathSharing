@@ -2,3 +2,4 @@
     <p>{{invite.group_name}}</p>
     <button class="btn btn-lg btn-primary" ng-click="accept_invite(invite.id, invite.group_id, invite.user_id)">Accept</button>
 </div>
+<div class="alert alert-warning" ng-if="error">{{ error }}</div>

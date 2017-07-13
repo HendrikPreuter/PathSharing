@@ -14,7 +14,8 @@ angular.module("myApp.invitations", ['ngRoute'])
         }
         $http.get('http://localhost:5000/invites').then(function(response) {
             if(response.data.response === "error"){
-                console.log(response);
+                $scope.error = response.data.error;
+                console.log(response, $scope.error);
             } else {
                 $scope.invites = response.data;
             }
@@ -28,7 +29,7 @@ angular.module("myApp.invitations", ['ngRoute'])
             };
             $http.post('http://localhost:5000/accept_invite', data).then(function(response) {
                 if(response.data.response === "error"){
-                    console.log(response.data.response);
+                    $scope.error = response.data.error;
                 }
             })
         }
@@ -44,7 +45,7 @@ angular.module("myApp.invitations", ['ngRoute'])
             };
             $http.post('http://localhost:5000/invites', data).then(function(response) {
                 if(response.data.response === "error"){
-                    console.log(response.data.response);
+                    $scope.error = response.data.error;
                 }
             });
         }

@@ -9,7 +9,6 @@ angular.module("myApp.login", ['ngRoute', 'angular-jwt'])
     .controller("loginController", ['$scope', '$http', '$location', 'jwtHelper', function($scope, $http, $location, jwtHelper) {
         $scope.token = localStorage.getItem('token');
         if($scope.token != 'undefined' && $scope.token && $scope.token != null) {
-            $http.defaults.header.common.Token = $scope.token;
             $location.path('/#!home');
         }
 

@@ -91,7 +91,11 @@ def get_invites():
             'group_id': invitation.group_id,
             'user_id': invitation.user_id
         })
-
+    if not invitations_list:
+        return jsonify({
+            'response': 'error',
+            'error': 'You currently have no invitations'
+        })
     return jsonify(invitations_list)
 
 
@@ -101,12 +105,27 @@ def send_invite():
     username = data['user_name']
     groupname = data['group_name']
     groupinfo = Groups.query.filter_by(name=groupname).first()
+    if not groupinfo:
+        return jsonify({
+            'response': 'error',
+            'error': 'There is no group called ' + groupname
+        })
     userinfo = Users.query.filter_by(username=username).first()
+    if not userinfo:
+        return jsonify({
+            'response': 'error',
+            'error': 'There is no user with username ' + username
+        })
+    if Users_has_Groups.query.filter_by(users_id=userinfo.id, groups_id=groupinfo.id).first():
+        return jsonify({
+            'response': 'error',
+            'error': 'User ' + username + ' is already in group ' + groupname
+        })
     invitation = invitations(id=None, user_id=userinfo.id, group_id=groupinfo.id)
     db.session.add(invitation)
     db.session.flush()
     db.session.commit()
-    return jsonify({'response': 'succes'})
+    return jsonify({'response': 'success'})
 
 
 @app.route('/accept_invite', methods=['POST'])
