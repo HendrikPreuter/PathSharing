@@ -27,9 +27,8 @@ angular.module("myApp.signup", ['ngRoute'])
                 };
                 $http.post("http://localhost:5000/user", data).then(function (response) {
                     if (response.data.response === "success") {
-                        alert("user created");
-                        console.log("succes");
-                        window.location.assign('/#!login');
+                        $scope.success = response.data.success;
+                        location.reload();
                     } else {
                         console.log(response.data.response);
                         $scope.error = response.data.error;

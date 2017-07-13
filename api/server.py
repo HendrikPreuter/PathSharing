@@ -8,13 +8,6 @@ from api.services.authenticator import *
 CORS(app)
 
 
-@app.route('/', methods=['GET'])
-def index():
-    return jsonify({
-        'Lorem': 'ipsum homepage sit amet'
-    })
-
-
 @app.route('/login', methods=['POST'])
 def login():
     data = request.get_json(force=True)
@@ -22,7 +15,10 @@ def login():
     try:
         user = Users.query.filter_by(username=data['username'])\
             .filter_by(password=data['password']).one()
-        return jsonify({'token': generate_token(user)})
+        return jsonify({
+            'response': 'success',
+            'token': generate_token(user)
+        })
     except Exception as e:
         return jsonify({
             'response': 'error',
@@ -31,22 +27,16 @@ def login():
         })
 
 
-@app.route('/about', methods=['GET'])
-def about():
-    return jsonify({'': 'Lorem ipsum dolor sit amet'})
-
-
 @app.route('/user', methods=['GET'])
 def user_info():
     if check_user():
         user = get_user()
         user_id = user['id']
         user = Users.query.filter_by(id=user_id).one()
-        response = jsonify({
+        return jsonify({
             'username': user.username,
             'email': user.email
         })
-        return response
     else:
         return jsonify({
             'response': 'error',
@@ -74,7 +64,8 @@ def create_user_info():
     db.session.add(user)
     db.session.commit()
     return jsonify({
-        'response': 'success'
+        'response': 'success',
+        'success': 'Account created successfully, you should be directed to the login page'
     })
 
 
@@ -121,11 +112,19 @@ def send_invite():
             'response': 'error',
             'error': 'User ' + username + ' is already in group ' + groupname
         })
+    if invitations.query.filter_by(user_id=userinfo.id, group_id=groupinfo.id).first():
+        return jsonify({
+            'response': 'error',
+            'error': 'User' + username + ' has already been invited to group ' + groupname
+        })
     invitation = invitations(id=None, user_id=userinfo.id, group_id=groupinfo.id)
     db.session.add(invitation)
     db.session.flush()
     db.session.commit()
-    return jsonify({'response': 'success'})
+    return jsonify({
+        'response': 'success',
+        'success': 'Invite has been sent'
+    })
 
 
 @app.route('/accept_invite', methods=['POST'])
@@ -137,7 +136,10 @@ def accept_invite():
     db.session.add(group)
     db.session.flush()
     db.session.commit()
-    return jsonify({'response': 'succes'})
+    return jsonify({
+        'response': 'success',
+        'success': 'Invite has been accepted'
+    })
 
 
 @app.route('/groups', methods=['GET'])
@@ -147,6 +149,12 @@ def groups():
         id = user_info['id']
         grouplist = []
         # Get all groups the user is in
+        if not Users_has_Groups.query.filter_by(users_id=id).first():
+            return jsonify({
+                'response': 'error',
+                'error': 'You are currently not in any group'
+            })
+
         for useringroup in Users_has_Groups.query.filter_by(users_id=id).all():
 
             # Get the users that are in these groups
@@ -170,7 +178,7 @@ def groups():
             })
 
         json = {
-            'response': 'succes',
+            'response': 'success',
             'groups': grouplist
         }
         return jsonify(json)
@@ -181,9 +189,20 @@ def groups():
 def create_group():
     if check_user():
         group_info = request.get_json(force=True)
+        print(group_info)
         description = group_info['description']
         admin = group_info['admin']
         name = group_info['name']
+        try:
+            if Groups.query.filter_by(name=name).one():
+                return jsonify({
+                    'response': 'error',
+                    'error': 'This group name is already in use'
+                })
+        except:
+            pass
+
+        print("you should see this too")
         group = Groups(id=None, description=description, admin=admin, name=name)
 
         db.session.add(group)
@@ -191,21 +210,23 @@ def create_group():
         groupid = group.id
         db.session.commit()
 
-
         users_has_groups = Users_has_Groups(pkey=None, users_id=admin, groups_id=groupid)
         db.session.add(users_has_groups)
         db.session.commit()
     return jsonify({
-        'response': 'Group created successfully'
+        'response': 'success',
+        'success': 'Group created successfully'
     })
 
 
-@app.route('/group/<int:user_id>', methods=['GET'])
-def groupInfo(user_id):
+@app.route('/group/<int:group_id>', methods=['GET'])
+def groupInfo(group_id):
+    user_info = get_user()
+    user_id = user_info['id']
     group = Groups.query.filter_by(id=user_id).first()
 
     userlist = []
-    for userid in Users_has_Groups.query.distinct().filter_by(groups_id=group.id).all():
+    for userid in Users_has_Groups.query.distinct().filter_by(groups_id=group_id).all():
         user = Users.query.filter_by(id=userid.users_id).first()
         userlist.append(user.username)
 
@@ -215,14 +236,8 @@ def groupInfo(user_id):
         'members': userlist,
         'admin': group.admin
     }
-
     print(json)
     return jsonify(json)
-
-
-@app.route('/groups/<group_id>/user/<id>', methods=['DELETE'])
-def remove_user_from_group(group_id, id):
-    return jsonify({'message': 'User_id ' + id + ' removed from group_id ' + group_id})
 
 
 @app.route('/documents', methods=['POST'])

@@ -30,6 +30,8 @@ angular.module("myApp.invitations", ['ngRoute'])
             $http.post('http://localhost:5000/accept_invite', data).then(function(response) {
                 if(response.data.response === "error"){
                     $scope.error = response.data.error;
+                } else {
+                    $scope.success = response.data.success;
                 }
             })
         }
@@ -46,7 +48,10 @@ angular.module("myApp.invitations", ['ngRoute'])
             $http.post('http://localhost:5000/invites', data).then(function(response) {
                 if(response.data.response === "error"){
                     $scope.error = response.data.error;
+                } else {
+                    $scope.success = response.data.success;
                 }
+
             });
         }
     });

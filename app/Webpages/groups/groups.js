@@ -26,7 +26,7 @@ angular.module("myApp.groups", ['ngRoute'])
 
         $http.get('http://localhost:5000/groups', data).then(function(response) {
             if(response.data.response === 'error') {
-                console.log(response.data.response);
+                $scope.error = response.data.error;
             } else {
                 $scope.groups = response.data.groups;
             }
@@ -54,7 +54,10 @@ angular.module("myApp.groups", ['ngRoute'])
 
                 $http.post('http://localhost:5000/groups', data).then(function(response){
                     if(response.data.response === "error"){
-                        console.log(response);
+                        $scope.error = response.data.error;
+                    } else {
+                        $scope.success = response.data.success;
+                        location.reload();
                     }
                 })
             }
@@ -65,21 +68,14 @@ angular.module("myApp.groups", ['ngRoute'])
         }
     })
     //TODO: Finish group info page.
-    .controller("group_infoController", function($scope, $http, $routeParams) {
+    .controller("group_infoController", function($scope, $http, $routeParams, jwtHelper) {
         if (!localStorage.getItem('token')) {
             window.location.href = '/#!login';
         }
         var group_id = $routeParams['groupId'];
-        console.log(group_id);
-
-        $http({
-            method: 'GET',
-            url: 'http://localhost:5000/group/' + group_id
-        }).then(function successCallback(response) {
+        $http.get('http://localhost:5000/group/' + group_id).then(function (response) {
             $scope.groups = response.data;
             console.log(response);
-        }, function errorCallback(response) {
-            console.log(response);
-        })
+        });
     });
 
