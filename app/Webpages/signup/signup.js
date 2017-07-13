@@ -14,10 +14,13 @@ angular.module("myApp.signup", ['ngRoute'])
                 'password': user.password
             };
             $http.post("http://localhost:5000/user", data).then(function(response){
-                if(response.data.response === "success"){
-                    console.log("success");
+                if(response.data.response === "succes"){
+                    alert("user created");
+                    console.log("succes");
+                    window.location.assign('/#!login');
                 } else {
                     console.log(response.data.response);
+                    alert(response.data.response);
                 }
             })
         };

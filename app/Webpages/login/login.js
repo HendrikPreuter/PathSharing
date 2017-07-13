@@ -8,25 +8,30 @@ angular.module("myApp.login", ['ngRoute', 'angular-jwt'])
 
     .controller("loginController", ['$scope', '$http', '$location', 'jwtHelper', function($scope, $http, $location, jwtHelper) {
         $scope.token = localStorage.getItem('token');
-        if($scope.token) {
-            $http.defaults.headers.common.Token = $scope.token;
+        if($scope.token !== null) {
+            $http.defaults.header.common.Token = $scope.token;
             $location.path('/#!home');
         }
 
         $scope.login = function(user) {
+            console.log('logging in.');
             var data = {
                 'username': user.username,
                 'password': user.password
             };
+            console.log(data);
             $http.post("http://localhost:5000/login", data).then(function (response) {
-                if(response.data.response === 'error' || response.data.error) {
-                    console.log('erorr handling');
-                    console.log(response.data.error);
+                alert(response.data.response);
+
+                if(response.data.response === 'error') {
+                    console.log('Error')
                 } else {
-                    console.log('Go BOY');
                     $scope.token = response.data.token;
-                    localStorage.setItem('token', $scope.token);
                     $http.defaults.headers.common.Token = $scope.token;
+
+                    var userinfo = jwtHelper.decodeToken($scope.token);
+                    localStorage.setItem('username', userinfo.username);
+                    localStorage.setItem('userid', userinfo.id);
                     window.location.href = '/#!home';
                 }
             })
