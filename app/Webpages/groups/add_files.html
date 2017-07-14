@@ -2,10 +2,9 @@
 <ul>
     <li ng-repeat="item in uploader.queue">
         Name: <span>{{ item.file.name }}</span><br/>
-        <button ng-class="item.upload()">upload</button>
+        <button ng-click="item.upload()">upload</button>
     </li>
 </ul>
-<button class="btn btn-primary" ng-click="item.upload()">Upload</button>
 
 
 <!--<form>-->

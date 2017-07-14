@@ -96,7 +96,7 @@ angular.module("myApp.groups", ['ngRoute', 'angularFileUpload'])
 
             });
         }
-    });
+    })
 
     .controller("add_filesController", function ($scope, $http, $routeParams, jwtHelper, FileUploader) {
 
