@@ -13,7 +13,7 @@ def login():
     data = request.get_json(force=True)
 
     try:
-        user = Users.query.filter_by(username=data['username'])\
+        user = Users.query.filter_by(username=data['username']) \
             .filter_by(password=data['password']).one()
         return jsonify({
             'response': 'success',
@@ -247,16 +247,21 @@ def groupInfo(group_id):
 
 @app.route('/documents', methods=['POST'])
 def addDocuments():
-
-    file = request.files['file']
-    print(file)
-
-    # TODO: very basic, needs to be expanded upon
-    # filename = request.form['filename']
-    # filename = "procedure.txt"
-    # mongo.save_file(filename, request.files['file'])
-
-    return jsonify({'message': 'succes'})
+    print('we"re in addDocuments()')
+    try:
+        file = request.files['file']
+        filename = file.filename
+        mongo.save_file(filename, file)
+        return jsonify({
+            'response': 'success',
+            'success': 'File was successfully uploaded'
+        })
+    except Exception as e:
+        print(str(e))
+        return jsonify({
+            'response': 'error',
+            'error': str(e)
+        })
     #return jsonify({'message':'File: ' + filename + ' has been saved!'})
 
 

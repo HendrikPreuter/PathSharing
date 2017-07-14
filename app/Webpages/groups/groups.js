@@ -108,7 +108,12 @@ angular.module("myApp.groups", ['ngRoute', 'angularFileUpload'])
             queueLimit: 1
         });
 
-        uploader.onSuccessItem = function (fileItem) {
-            console.log("uploaded file");
+        uploader.onCompleteItem = function (response) {
+            console.log(response);
+            if(response.data.response === 'error'){
+                console.log(response.data.error);
+            } else {
+                console.log(response.data.success);
+            }
         }
 });
