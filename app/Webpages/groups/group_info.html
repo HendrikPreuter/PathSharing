@@ -21,6 +21,32 @@
 
         <button class="btn btn-lg btn-primary" ng-click="send_invite(invite)">Send</button>
     </form>
-    <div class="alert alert-warning" ng-if="error">{{ error }}</div>
-    <div class="alert alert-succes" ng-if="success">{{ success }}</div>
+    <div>
+        <div class="alert alert-warning" ng-if="error">
+            {{ error }}
+        </div>
+        <div class="alert alert-success" ng-if="success">
+            {{ success }}
+        </div>
+    </div>
+</div>
+
+
+
+<div class="col-md-12">
+    <input type="file" nv-file-select uploader="uploader"/>
+    <ul>
+        <li ng-repeat="item in uploader.queue">
+            Name: <span>{{ item.file.name }}</span><br/>
+            <button ng-click="item.upload()">upload</button>
+        </li>
+    </ul>
+    <div>
+        <div class="alert alert-warning" ng-if="fileError">
+            {{ fileError }}
+        </div>
+        <div class="alert alert-success" ng-if="fileSuccess">
+            {{ fileSuccess }}
+        </div>
+    </div>
 </div>

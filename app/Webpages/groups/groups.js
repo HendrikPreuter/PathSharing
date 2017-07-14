@@ -9,9 +9,6 @@ angular.module("myApp.groups", ['ngRoute', 'angularFileUpload'])
         }).when('/groups/info/:groupId', {
             templateUrl: 'Webpages/groups/group_info.html',
             controller: 'group_infoController'
-        }).when('/groups/info/:groupId/addFiles', {
-            templateUrl: 'Webpages/groups/add_files.html',
-            controller: 'add_filesController'
         })
     }])
 
@@ -70,7 +67,7 @@ angular.module("myApp.groups", ['ngRoute', 'angularFileUpload'])
         }
     })
     //TODO: Finish group info page.
-    .controller("group_infoController", function($scope, $http, $routeParams, jwtHelper) {
+    .controller("group_infoController", function($scope, $http, $routeParams, jwtHelper, FileUploader) {
         if (!localStorage.getItem('token')) {
             window.location.href = '/#!login';
         }
@@ -95,13 +92,7 @@ angular.module("myApp.groups", ['ngRoute', 'angularFileUpload'])
                 }
 
             });
-        }
-    })
-
-    .controller("add_filesController", function ($scope, $http, $routeParams, jwtHelper, FileUploader) {
-
-
-        //$scope.resource = {};
+        };
 
         var uploader = $scope.uploader = new FileUploader({
             url: "http://localhost:5000/documents",
@@ -109,11 +100,10 @@ angular.module("myApp.groups", ['ngRoute', 'angularFileUpload'])
         });
 
         uploader.onCompleteItem = function (response) {
-            console.log(response);
-            if(response.data.response === 'error'){
-                console.log(response.data.error);
+            if(response.isSuccess){
+                $scope.fileSuccess = 'File was successfully uploaded';
             } else {
-                console.log(response.data.success);
+                $scope.fileError = 'An error has occurred';
             }
         }
-});
+    });
