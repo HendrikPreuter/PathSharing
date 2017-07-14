@@ -248,12 +248,16 @@ def groupInfo(group_id):
 @app.route('/documents', methods=['POST'])
 def addDocuments():
 
-    # TODO: very basic, needs to be expanded upon
-    filename = request.form['filename']
-    # filename = "procedure.txt"
-    mongo.save_file(filename, request.files['file'])
+    file = request.files['file']
+    print(file)
 
-    return jsonify({'message':'File: ' + filename + ' has been saved!'})
+    # TODO: very basic, needs to be expanded upon
+    # filename = request.form['filename']
+    # filename = "procedure.txt"
+    # mongo.save_file(filename, request.files['file'])
+
+    return jsonify({'message': 'succes'})
+    #return jsonify({'message':'File: ' + filename + ' has been saved!'})
 
 
 @app.route('/documents/<filename>', methods=['GET', 'DELETE'])

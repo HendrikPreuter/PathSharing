@@ -1,4 +1,4 @@
-angular.module("myApp.groups", ['ngRoute'])
+angular.module("myApp.groups", ['ngRoute', 'angularFileUpload'])
     .config(['$routeProvider', function($routeProvider){
         $routeProvider.when('/groups', {
             templateUrl: 'Webpages/groups/groups.html',
@@ -9,6 +9,9 @@ angular.module("myApp.groups", ['ngRoute'])
         }).when('/groups/info/:groupId', {
             templateUrl: 'Webpages/groups/group_info.html',
             controller: 'group_infoController'
+        }).when('/groups/info/:groupId/addFiles', {
+            templateUrl: 'Webpages/groups/add_files.html',
+            controller: 'add_filesController'
         })
     }])
 
@@ -78,3 +81,17 @@ angular.module("myApp.groups", ['ngRoute'])
         });
     });
 
+    .controller("add_filesController", function ($scope, $http, $routeParams, jwtHelper, FileUploader) {
+
+
+        //$scope.resource = {};
+
+        var uploader = $scope.uploader = new FileUploader({
+            url: "http://localhost:5000/documents",
+            queueLimit: 1
+        });
+
+        uploader.onSuccessItem = function (fileItem) {
+            console.log("uploaded file");
+        }
+});
