@@ -72,9 +72,26 @@ angular.module("myApp.groups", ['ngRoute'])
             window.location.href = '/#!login';
         }
         var group_id = $routeParams['groupId'];
+
         $http.get('http://localhost:5000/group/' + group_id).then(function (response) {
             $scope.groups = response.data;
             console.log(response);
         });
+
+        $scope.send_invite = function(invitation) {
+            var group_id = $routeParams['groupId'];
+            data = {
+                'group_id': group_id,
+                'user_name': invitation.user_name
+            };
+            $http.post('http://localhost:5000/invites', data).then(function(response) {
+                if(response.data.response === "error"){
+                    $scope.error = response.data.error;
+                } else {
+                    $scope.success = response.data.success;
+                }
+
+            });
+        }
     });
 

@@ -102,12 +102,12 @@ def get_invites():
 def send_invite():
     data = request.get_json(force=True)
     username = data['user_name']
-    groupname = data['group_name']
-    groupinfo = Groups.query.filter_by(name=groupname).first()
+    group_id = data['group_id']
+    groupinfo = Groups.query.filter_by(id=group_id).first()
     if not groupinfo:
         return jsonify({
             'response': 'error',
-            'error': 'There is no group called ' + groupname
+            'error': 'There is no group with that name'
         })
     userinfo = Users.query.filter_by(username=username).first()
     if not userinfo:
@@ -118,14 +118,14 @@ def send_invite():
     if Users_has_Groups.query.filter_by(users_id=userinfo.id, groups_id=groupinfo.id).first():
         return jsonify({
             'response': 'error',
-            'error': 'User ' + username + ' is already in group ' + groupname
+            'error': 'User ' + username + ' is already in that group'
         })
     if invitations.query.filter_by(user_id=userinfo.id, group_id=groupinfo.id).first():
         return jsonify({
             'response': 'error',
-            'error': 'User' + username + ' has already been invited to group ' + groupname
+            'error': 'User ' + username + ' has already been invited to group that group'
         })
-    invitation = invitations(id=None, user_id=userinfo.id, group_id=groupinfo.id)
+    invitation = invitations(id=None, user_id=userinfo.id, group_id=group_id)
     db.session.add(invitation)
     db.session.flush()
     db.session.commit()

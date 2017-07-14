@@ -3,9 +3,6 @@ angular.module("myApp.invitations", ['ngRoute'])
         $routeProvider.when('/invites', {
             templateUrl: 'Webpages/invitations/invitations.html',
             controller: 'invitationsController'
-        }).when('/create_invite', {
-            templateUrl: 'Webpages/invitations/send_invitation.html',
-            controller: 'sendInvitationsController'
         })
     }])
     .controller("invitationsController", function($scope, $http) {
@@ -35,24 +32,5 @@ angular.module("myApp.invitations", ['ngRoute'])
                     location.reload();
                 }
             })
-        }
-    })
-    .controller("sendInvitationsController", function($scope, $http) {
-        if (!localStorage.getItem('token')) {
-            window.location.href = '/#!login';
-        }
-        $scope.send_invite = function(invitation) {
-            data = {
-                'group_name': invitation.group_name,
-                'user_name': invitation.user_name
-            };
-            $http.post('http://localhost:5000/invites', data).then(function(response) {
-                if(response.data.response === "error"){
-                    $scope.error = response.data.error;
-                } else {
-                    $scope.success = response.data.success;
-                }
-
-            });
         }
     });
