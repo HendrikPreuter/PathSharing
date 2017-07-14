@@ -1,6 +1,7 @@
 import gridfs
 from flask import jsonify
 from flask_cors import CORS, cross_origin
+import mimetypes
 
 from api.database.modules import *
 from api.services.authenticator import *
@@ -247,11 +248,17 @@ def groupInfo(group_id):
 
 @app.route('/documents', methods=['POST'])
 def addDocuments():
-    print('we"re in addDocuments()')
+    # print('we"re in addDocuments()')
     try:
+        fs = gridfs.GridFS(mongo.db)
+
         file = request.files['file']
+        group_id = request.form['group_id']
         filename = file.filename
-        mongo.save_file(filename, file)
+        content_type = mimetypes.guess_type(filename)[0]
+
+        store = fs.put(file, content_type=content_type, filename=filename, groupId=group_id)
+
         return jsonify({
             'response': 'success',
             'success': 'File was successfully uploaded'
@@ -262,25 +269,45 @@ def addDocuments():
             'response': 'error',
             'error': str(e)
         })
-    #return jsonify({'message':'File: ' + filename + ' has been saved!'})
 
 
-@app.route('/documents/<filename>', methods=['GET', 'DELETE'])
-def retrieveDocuments(filename):
+@app.route('/documents/<groupId>', methods=['GET'])
+def retrieveDocuments(groupId):
+    # Returns file
+    #return mongo.send_file(filename)
+    files = []
 
-    if request.method == 'GET':
-        # Returns file
-        return mongo.send_file(filename)
-    else:
-        # find file in MongoDB by filename
-        file_info = mongo.db.fs.files.find_one({"filename": filename})
-        file_id = file_info['_id']
-        # Create gridFS object using mongo.db connection
-        fs = gridfs.GridFS(mongo.db)
-        # Delete all entries in the MongoDB with file_id
-        fs.delete(file_id)
+    documents = mongo.db.fs.files.find({"groupId": groupId})
 
-        return jsonify({'message': 'File: ' + filename + ' successfully deleted!'})
+    for document in documents:
+        files.append(document['filename'])
+
+    #print(files)
+
+    json = {
+        'response': 'succes',
+        'files': files
+    }
+
+    return jsonify(json)
+
+@app.route('/document/<filename>', methods=['GET'])
+def getFile(filename):
+    return mongo.send_file(filename)
+
+
+
+@app.route('/documents/<filename>', methods=['DELETE'])
+def removeDocuments(filename):
+    # find file in MongoDB by filename
+    file_info = mongo.db.fs.files.find_one({"filename": filename})
+    file_id = file_info['_id']
+    # Create gridFS object using mongo.db connection
+    fs = gridfs.GridFS(mongo.db)
+    # Delete all entries in the MongoDB with file_id
+    fs.delete(file_id)
+
+    return jsonify({'message': 'File: ' + filename + ' successfully deleted!'})
 
 
 if __name__ == "__main__":

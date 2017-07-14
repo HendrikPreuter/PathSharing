@@ -12,10 +12,8 @@ angular.module("myApp.user", ['ngRoute'])
         }
         $http.get('http://localhost:5000/user').then(function (response) {
             if(response.data.response === "error"){
-                console.log(response);
             } else {
                 $scope.user_info = response.data;
-                console.log(response);
             }
         });
     });

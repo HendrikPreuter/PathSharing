@@ -6,5 +6,4 @@ angular.module("myApp.about", ['ngRoute'])
         });
     }])
 
-    .controller("aboutController", function($scope, $http) {
-    });
+    .controller("aboutController", function($scope, $http) {});

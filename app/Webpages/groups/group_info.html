@@ -1,38 +1,40 @@
 <div class="col-md-6">
+
+    <h2>{{ groups.name }}</h2>
+
+    <p>{{ groups.description }}</p>
+
+    <p>Admin: {{groups.admin}}</p>
+
+    <p>Members: <span ng-repeat="member in groups.members">{{ member }} </span></p>
+
+    <br/>
+
+    <!-- File upload HTML -->
     <ul class="list-group">
-        <a class="list-group-item">
-            <h4 class="list-group-item-heading">{{ groups.name }}</h4>
-            <p class="list-group-item-text">{{ groups.description}}</p>
-            <h4 class="list-group-item-heading">Admin</h4>
-            <p class="list-group-item-text">{{ groups.admin}}</p>
-            <h4 class="list-group-item-heading">Members</h4>
-            <p class="list-group-item-text"><span ng-repeat="member in groups.members">{{ member }} </span></p>
-        </a>
+        <li ng-repeat="file in files" class="list-group-item"><a href="http://localhost:5000/document/{{ file }}">{{ file }}</a></li>
     </ul>
 </div>
 
+<!-- Send Invite HTML -->
 <div class="col-md-6">
     <form>
         <h3>Send invite</h3>
         <div class="form-group">
-            <label for="groupName">Username</label>
+            <label for="userName">Username</label>
             <input type="text" class="form-control" id="userName" placeholder="User Name" ng-model="invite.user_name">
         </div>
 
         <button class="btn btn-lg btn-primary" ng-click="send_invite(invite)">Send</button>
     </form>
     <div>
-        <div class="alert alert-warning" ng-if="error">
-            {{ error }}
-        </div>
-        <div class="alert alert-success" ng-if="success">
-            {{ success }}
-        </div>
+        <div class="alert alert-warning" ng-if="error">{{ error }}</div>
+
+        <div class="alert alert-success" ng-if="success">{{ success }}</div>
     </div>
 </div>
 
-
-
+<!-- File Upload HTML -->
 <div class="col-md-12">
     <input type="file" nv-file-select uploader="uploader"/>
     <ul>

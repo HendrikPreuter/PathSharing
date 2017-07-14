@@ -59,27 +59,28 @@ angular.module("myApp.groups", ['ngRoute', 'angularFileUpload'])
                         $scope.success = response.data.success;
                     }
                 })
-            }
-
-            else {
+            } else {
                 window.location.href = 'http://localhost:8000/#!/login';
             }
         }
     })
-    //TODO: Finish group info page.
+
     .controller("group_infoController", function($scope, $http, $routeParams, jwtHelper, FileUploader) {
         if (!localStorage.getItem('token')) {
             window.location.href = '/#!login';
         }
+
         var group_id = $routeParams['groupId'];
+
+        $http.get('http://localhost:5000/documents/' + group_id).then(function (response) {
+            $scope.files = response.data.files;
+        });
 
         $http.get('http://localhost:5000/group/' + group_id).then(function (response) {
             $scope.groups = response.data;
-            console.log(response);
         });
 
         $scope.send_invite = function(invitation) {
-            var group_id = $routeParams['groupId'];
             data = {
                 'group_id': group_id,
                 'user_name': invitation.user_name
@@ -90,13 +91,15 @@ angular.module("myApp.groups", ['ngRoute', 'angularFileUpload'])
                 } else {
                     $scope.success = response.data.success;
                 }
-
             });
         };
 
         var uploader = $scope.uploader = new FileUploader({
             url: "http://localhost:5000/documents",
-            queueLimit: 1
+            queueLimit: 1,
+            formData: [{
+                'group_id': group_id
+            }]
         });
 
         uploader.onCompleteItem = function (response) {
@@ -105,5 +108,5 @@ angular.module("myApp.groups", ['ngRoute', 'angularFileUpload'])
             } else {
                 $scope.fileError = 'An error has occurred';
             }
-        }
+        };
     });

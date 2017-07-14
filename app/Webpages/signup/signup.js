@@ -9,15 +9,11 @@ angular.module("myApp.signup", ['ngRoute'])
     .controller("signupController", function($scope, $http){
         $scope.signup = function(user) {
             if(!user) {
-                console.log("error test");
             } else if(!user.username) {
-                console.log("username error");
                 $scope.error = "Please fill in your username";
             } else if(!user.email) {
-                console.log("email error");
                 $scope.error = "Please fill in your email";
             } else if(!user.password) {
-                console.log("password error");
                 $scope.error = "Please fill in your password";
             } else {
                 var data = {

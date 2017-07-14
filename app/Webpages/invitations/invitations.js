@@ -12,7 +12,6 @@ angular.module("myApp.invitations", ['ngRoute'])
         $http.get('http://localhost:5000/invites').then(function(response) {
             if(response.data.response === "error"){
                 $scope.error = response.data.error;
-                console.log(response, $scope.error);
             } else {
                 $scope.invites = response.data;
             }
